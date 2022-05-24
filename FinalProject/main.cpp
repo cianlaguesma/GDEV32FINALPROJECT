@@ -331,6 +331,66 @@ int main()
     vertices[95] = { -0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
 
 
+    // BED FRAME
+     // CONNECTOR LEFT
+    vertices[96] = { -0.80f, -0.1f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[97] = { -0.80f, -0.1f, -0.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[98] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+
+    vertices[99] = { -0.80f, 0.12f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[100] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[101] = { -0.80f, -0.1f, 1.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+
+    // CONNECTOR RIGHT
+    vertices[102] = { 0.80f, -0.1f, 1.05f,		231,123,123,		0.0f, 1.0f, 0.0f };
+    vertices[103] = { 0.80f, -0.1f, -0.05f,		231,123,123,		0.0f, 1.0f, 0.0f };
+    vertices[104] = { 0.80f, 0.12f, -0.05f,			231,123,123,		0.0f, 1.0f, 0.0f };
+
+    vertices[105] = { 0.80f, 0.12f, 1.05f,		231,123,123,		0.0f, 1.0f, 0.0f };
+    vertices[106] = { 0.80f, 0.12f, -0.05f,			231,123,123,		0.0f, 1.0f, 0.0f };
+    vertices[107] = { 0.80f, -0.1f, 1.05f,			231,123,123,		0.0f, 1.0f, 0.0f };
+
+    // CONNECTOR BOTTOM
+    vertices[108] = { -0.80f, -0.1f, -0.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[109] = { -0.80f, 0.12f, -0.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[110] = { 0.80f, 0.12f, -0.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    vertices[111] = { 0.80f, -0.1f, -0.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[112] = { 0.80f, 0.12f, -0.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[113] = { -0.80f, -0.1f, -0.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+
+    // CONNECTOR TOP
+    vertices[114] = { -0.80f, -0.1f, 1.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[115] = { -0.80f, 0.12f, 1.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[116] = { 0.80f, 0.12f, 1.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    vertices[117] = { 0.80f, -0.1f, 1.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[118] = { 0.80f, 0.12f, 1.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[119] = { -0.80f, -0.1f, 1.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    // BOTTOM FRAME FACE
+
+    vertices[120] = { -0.80f, -0.1f, 1.05f,		231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[121] = { -0.80f, -0.1f, -0.05f,		231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[122] = { 0.80f, -0.1f, -0.05f,			231,105,105,		0.0f, 1.0f, 0.0f };
+
+    vertices[123] = { -0.80f, -0.1f, 1.05f,		231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[124] = { 0.80f, -0.1f, -0.05f,			231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[125] = { 0.80f, -0.1f, 1.05f,			231,105,105,		0.0f, 1.0f, 0.0f };
+
+    // Back Frame
+
+    vertices[126] = { -0.80f, 0.12f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[127] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[128] = { -0.80f, 0.5f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+
+    vertices[129] = { -0.80f, 0.12f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[130] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[131] = { -0.80f, 0.5f, 1.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+
+
+
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -510,7 +570,7 @@ int main()
 
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
 
-        glDrawArrays(GL_TRIANGLES, 60, 36);
+        glDrawArrays(GL_TRIANGLES, 60, 78);
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
