@@ -427,6 +427,61 @@ int main()
     vertices[149] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f,		0.0f, -1.0f, 0.0f };
 
 
+    // face movement
+     //front face
+    vertices[150] = { -0.5f, 0.5f, 0.5f,		0,0,0,      0.f,1.f,		0.0f, 0.0f, 1.0f };
+    vertices[151] = { -0.5f, -0.5f, 0.5f,		0,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+    vertices[152] = { 0.5f, -0.5f, 0.5f,		0,0,0,      1.f,0.f,		0.0f, 0.0f, 1.0f };
+
+    vertices[153] = { -0.5f, 0.5f, 0.5f,		0,0,0,      0.f,1.f,		0.0f, 0.0f, 1.0f };
+    vertices[154] = { 0.5f, 0.5f, 0.5f,		0,0,0,      1.f,1.f,		0.0f, 0.0f, 1.0f };
+    vertices[155] = { 0.5f, -0.5f, 0.5f,		0,0,0,      1.f,0.f,		0.0f, 0.0f, 1.0f };
+
+
+    // right face
+    vertices[156] = { 0.5f, 0.5f, 0.5f,		0,0,0,      0.f,1.f,		1.0f, 0.0f, 0.0f };
+    vertices[157] = { 0.5f, -0.5f, 0.5f,		0,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
+    vertices[158] = { 0.5f, -0.5f, -0.5f,	0,0,0,      1.f,0.f,		1.0f, 0.0f, 0.0f };
+
+    vertices[159] = { 0.5f, 0.5f, 0.5f,		0,0,0,      0.f,1.f,		1.0f, 0.0f, 0.0f };
+    vertices[160] = { 0.5f, 0.5f, -0.5f,		0,0,0,      1.f,1.f,		1.0f, 0.0f, 0.0f };
+    vertices[161] = { 0.5f, -0.5f, -0.5f,	0,0,0,      1.f,0.f,		1.0f, 0.0f, 0.0f };
+
+    // back face
+    vertices[162] = { -0.5f, 0.5f, -0.5f,		0,0,0,      0.f,1.f,		0.0f, 0.0f, -1.0f };
+    vertices[163] = { -0.5f, -0.5f, -0.5f,		0,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
+    vertices[164] = { 0.5f, -0.5f, -0.5f,		0,0,0,      1.f,0.f,		0.0f, 0.0f, -1.0f };
+
+    vertices[165] = { -0.5f, 0.5f, -0.5f,	0,0,0,      0.f,1.f,		0.0f, 0.0f, -1.0f };
+    vertices[166] = { 0.5f, 0.5f, -0.5f,		0,0,0,      1.f,1.f,		0.0f, 0.0f, -1.0f };
+    vertices[167] = { 0.5f, -0.5f, -0.5f,	0,0,0,      1.f,0.f,		0.0f, 0.0f, -1.0f };
+
+    // left face
+    vertices[168] = { -0.5f, 0.5f, 0.5f,		0,0,0,      0.f,1.f,		-1.0f, 0.0f, 0.0f };
+    vertices[169] = { -0.5f, -0.5f, 0.5f,	0,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
+    vertices[170] = { -0.5f, -0.5f, -0.5f,	0,0,0,      1.f,0.f,		-1.0f, 0.0f, 0.0f };
+
+    vertices[171] = { -0.5f, 0.5f, 0.5f,		0,0,0,      0.f,1.f,		-1.0f, 0.0f, 0.0f };
+    vertices[172] = { -0.5f, 0.5f, -0.5f,	0,0,0,      1.f,1.f,		-1.0f, 0.0f, 0.0f };
+    vertices[173] = { -0.5f, -0.5f, -0.5f,	0,0,0,      1.f,0.f,		-1.0f, 0.0f, 0.0f };
+
+    // top face
+    vertices[174] = { -0.5f, 0.5f, 0.5f,		0,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[175] = { 0.5f, 0.5f, 0.5f,		0,0,0,      1.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[176] = { 0.5f, 0.5f, -0.5f,		0,0,0,      1.f,1.f,		0.0f, 1.0f, 0.0f };
+
+    vertices[177] = { -0.5f, 0.5f, 0.5f,		0,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[178] = { -0.5f, 0.5f, -0.5f,	0,0,0,      0.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[179] = { 0.5f, 0.5f, -0.5f,		0,0,0,      1.f,1.f,		0.0f, 1.0f, 0.0f };
+
+    // bottom face
+    vertices[180] = { -0.5f, -0.5f, 0.5f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[181] = { 0.5f, -0.5f, 0.5f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[182] = { 0.5f, -0.5f, -0.5f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[183] = { -0.5f, -0.5f, 0.5f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[184] = { -0.5f, -0.5f, -0.5f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[185] = { 0.5f, -0.5f, -0.5f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -640,6 +695,79 @@ int main()
 
 
 #pragma endregion
+#pragma region FIFTHTEX
+
+
+    //THIS IS FOR THE FOURTH TEXTURE
+    GLuint tex4;
+    glGenTextures(1, &tex4);
+    stbi_set_flip_vertically_on_load(true);
+
+    imageData = stbi_load("cian.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
+    if (imageData != nullptr)
+    {
+        glBindTexture(GL_TEXTURE_2D, tex4);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
+
+
+    stbi_set_flip_vertically_on_load(true);
+
+
+#pragma endregion
+
+#pragma region SIXTHTEX
+
+
+    //THIS IS FOR THE FOURTH TEXTURE
+    GLuint tex5;
+    glGenTextures(1, &tex5);
+    stbi_set_flip_vertically_on_load(true);
+
+    imageData = stbi_load("tomy.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
+    if (imageData != nullptr)
+    {
+        glBindTexture(GL_TEXTURE_2D, tex5);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
+
+
+    stbi_set_flip_vertically_on_load(true);
+
+
+#pragma endregion
     // Framebuffer
     GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
@@ -663,7 +791,11 @@ int main()
         std::cout << "Error! Framebuffer not complete!" << std::endl;
     }
     
+    
 
+
+    glm::vec3 movingFacePosition = glm::vec3(-3.f, -1.f, -4.f);
+    float movingFaceSpeed = 0.05f;
     // Render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -695,6 +827,24 @@ int main()
             cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         }
 
+        int upArrowState = glfwGetKey(window, GLFW_KEY_UP);
+        int downArrowState = glfwGetKey(window, GLFW_KEY_DOWN);
+        int rightArrowState = glfwGetKey(window, GLFW_KEY_RIGHT);
+        int leftArrowState = glfwGetKey(window, GLFW_KEY_LEFT);
+
+        if (upArrowState == GLFW_PRESS) {
+            movingFacePosition += cameraFront * movingFaceSpeed;
+        }
+        else if (downArrowState == GLFW_PRESS) {
+            movingFacePosition -= cameraFront * movingFaceSpeed;
+        }
+        if (rightArrowState == GLFW_PRESS) {
+            movingFacePosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * movingFaceSpeed;
+        }
+        else if (leftArrowState == GLFW_PRESS) {
+            movingFacePosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * movingFaceSpeed;
+        }
+
 #pragma region firstpass
         glUseProgram(depthShader);
         glBindVertexArray(depthVAO);
@@ -722,6 +872,10 @@ int main()
 
         glm::mat4 bedTransform = glm::mat4(1.0f);
         glm::mat4 belowBed = glm::mat4(1.0f);
+
+
+        glm::mat4 movingFace = glm::mat4(1.0f);
+
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
 
@@ -759,6 +913,11 @@ int main()
         glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
         glDrawArrays(GL_TRIANGLES, 96, 36);
 
+        movingFace = glm::translate(movingFace, movingFacePosition);
+        movingFace = glm::scale(movingFace, glm::vec3(1.f, 1.f, 1.f));
+
+        glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
+        glDrawArrays(GL_TRIANGLES, 150, 36);
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glViewport(0, 0, windowWidth, windowHeight);
@@ -822,12 +981,29 @@ int main()
         glDrawArrays(GL_TRIANGLES, 60, 36);
         glBindTexture(GL_TEXTURE_2D, tex2);
         //bedbelow
+
+    
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
         glDrawArrays(GL_TRIANGLES, 96, 36);
 
+        
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
 
-#pragma endregion
+        glBindTexture(GL_TEXTURE_2D, tex4);
+      
+        glDrawArrays(GL_TRIANGLES, 150, 6);
 
+        glBindTexture(GL_TEXTURE_2D, tex5);
+        glDrawArrays(GL_TRIANGLES, 156, 6);
+        glBindTexture(GL_TEXTURE_2D, tex4);
+        glDrawArrays(GL_TRIANGLES, 162, 6);
+        glBindTexture(GL_TEXTURE_2D, tex5);
+        glDrawArrays(GL_TRIANGLES, 168, 6);
+        glBindTexture(GL_TEXTURE_2D, tex4);
+        glDrawArrays(GL_TRIANGLES, 174, 6);
+        glBindTexture(GL_TEXTURE_2D, tex5);
+        glDrawArrays(GL_TRIANGLES, 180, 6);
+       
         //LIGHTS
         float constant = 1.0f;
         float linear = 0.14f;
