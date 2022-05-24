@@ -801,6 +801,41 @@ int main()
 
 
 #pragma endregion
+#pragma region EIGHTTEX
+
+
+    GLuint tex7;
+    glGenTextures(1, &tex7);
+    stbi_set_flip_vertically_on_load(true);
+
+    imageData = stbi_load("sims.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
+    if (imageData != nullptr)
+    {
+        glBindTexture(GL_TEXTURE_2D, tex7);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
+
+
+    stbi_set_flip_vertically_on_load(true);
+
+
+#pragma endregion
     // Framebuffer
     GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
@@ -831,6 +866,10 @@ int main()
     float movingFaceSpeed = 0.005f;
     glm::vec3 x = glm::vec3(1.0f,0,0);
     glm::vec3 z = glm::vec3(0,0,-1.0f);
+    float xRot = 0;
+
+    double timeout = 0;
+    bool night = true;
     // Render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -866,6 +905,7 @@ int main()
         int downArrowState = glfwGetKey(window, GLFW_KEY_DOWN);
         int rightArrowState = glfwGetKey(window, GLFW_KEY_RIGHT);
         int leftArrowState = glfwGetKey(window, GLFW_KEY_LEFT);
+
 
         if (upArrowState == GLFW_PRESS) {
             movingFacePosition += z * movingFaceSpeed;
@@ -908,7 +948,8 @@ int main()
         glm::mat4 bedTransform = glm::mat4(1.0f);
         glm::mat4 belowBed = glm::mat4(1.0f);
 
-
+        glm::mat4 sims = glm::mat4(1.0f);
+        glm::mat4 simsBelow = glm::mat4(1.0f);
         glm::mat4 movingFace = glm::mat4(1.0f);
 
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
@@ -948,11 +989,27 @@ int main()
         glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
         glDrawArrays(GL_TRIANGLES, 96, 36);
 
+        xRot += 0.5f;
         movingFace = glm::translate(movingFace, movingFacePosition);
         movingFace = glm::scale(movingFace, glm::vec3(1.f, 1.f, 1.f));
 
+        movingFace = glm::rotate(movingFace, glm::radians(xRot), glm::vec3(0.f, 1.0f, 0.f));
+
         glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
         glDrawArrays(GL_TRIANGLES, 150, 36);
+
+        sims = glm::translate(sims, movingFacePosition + glm::vec3(0.f, 2.f, 0.f));
+        sims = glm::scale(sims, glm::vec3(0.5f,0.5f,0.5f));
+        sims = glm::rotate(sims, glm::radians(xRot), glm::vec3(0.f, 1.f, 0.f));
+        /*glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(sims));
+        glDrawArrays(GL_TRIANGLES, 132, 18);*/
+
+        simsBelow = glm::translate(simsBelow, movingFacePosition + glm::vec3(0.f, 1.5f, 0.f));
+        simsBelow = glm::scale(simsBelow, glm::vec3(0.5f, 0.5f, 0.5f));
+        simsBelow = glm::rotate(simsBelow, glm::radians(180.f), glm::vec3(1.f, 0.f, 0.f));
+        simsBelow = glm::rotate(simsBelow, glm::radians(xRot), glm::vec3(0.f, -1.f, 0.f));
+        /*glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(simsBelow));
+        glDrawArrays(GL_TRIANGLES, 132, 18);*/
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glViewport(0, 0, windowWidth, windowHeight);
@@ -998,6 +1055,8 @@ int main()
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(planeTransform));
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
+        glBindTexture(GL_TEXTURE_2D, tex1);
+
         glActiveTexture(GL_TEXTURE0);
 
         glBindTexture(GL_TEXTURE_2D, tex1);
@@ -1028,7 +1087,7 @@ int main()
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
         glDrawArrays(GL_TRIANGLES, 96, 36);
 
-        
+
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
 
         glBindTexture(GL_TEXTURE_2D, tex4);
@@ -1045,7 +1104,13 @@ int main()
         glDrawArrays(GL_TRIANGLES, 174, 6);
         glBindTexture(GL_TEXTURE_2D, tex5);
         glDrawArrays(GL_TRIANGLES, 180, 6);
-       
+
+        glBindTexture(GL_TEXTURE_2D, tex7);
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(sims));
+
+        glDrawArrays(GL_TRIANGLES, 132, 18);
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(simsBelow));
+        glDrawArrays(GL_TRIANGLES, 132, 18);
         //LIGHTS
         float constant = 1.0f;
         float linear = 0.14f;
@@ -1058,18 +1123,34 @@ int main()
         Light light = {  };
         //glm::vec3 lightColor;
 
-        light.lightPos = glm::vec3(0.f, -1.f, 0.f);
-        light.lightColor = glm::vec3(0.5f, 1.0f, 1.0f);
-        light.diffuseColor = light.lightColor * glm::vec3(0.7f);
-        light.ambientColor = light.diffuseColor * glm::vec3(0.7f);
+        int spaceBarState = glfwGetKey(window, GLFW_KEY_SPACE);
+        timeout += 0.1;
+        if (spaceBarState == GLFW_PRESS && timeout > 40) {
+            timeout = 0;
+            if (night == false) {
+                night = true;
+            }
+            else {
+                night = false;
+
+            }
+        }
+        if (night == true) {
+            light.lightColor = glm::vec3(0.2f, 1.0f, 1.0f);
+            light.diffuseColor = light.lightColor * glm::vec3(0.5f);
+            light.ambientColor = light.diffuseColor * glm::vec3(0.5f);
+        }
+        else {
+            light.lightColor = glm::vec3(0.5f, 1.0f, 1.0f);
+            light.diffuseColor = light.lightColor * glm::vec3(1.f);
+            light.ambientColor = light.diffuseColor * glm::vec3(1.f);
+        }
         light.specular = glm::vec3(1.f, 1.f, 1.f);
         light.lightDirection = glm::vec3(0.f,-1.0f, 0.75f);
         light.materialAmbient = glm::vec3(1.f, 0.5f, 0.31f);
 
         light.materialDiffuse = glm::vec3(1.f, 0.5f, 0.31f);
         light.materialSpecular = glm::vec3(0.5f, 0.5f, 0.5f);
-        GLint lightUniformLocation = glGetUniformLocation(program, "light.position");
-        glUniform3fv(lightUniformLocation, 1, glm::value_ptr(light.lightPos));
         GLint lightUniformDirection = glGetUniformLocation(program, "light.direction");
 
 
