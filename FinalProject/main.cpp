@@ -112,6 +112,7 @@ struct Vertex
 {
     GLfloat x, y, z;
     GLubyte r, g, b;
+    GLfloat u, v;
     GLfloat nx, ny, nz;
 };
 
@@ -177,79 +178,101 @@ int main()
 
   
     // plane reused bottom face
-    vertices[0] = { -0.5f, -0.5f, 0.5f,        105,105,105,        0.0f, 1.0f, 0.0f };
-    vertices[1] = { 0.5f, -0.5f, 0.5f,        105,105,105,        0.0f, 1.0f, 0.0f };
-    vertices[2] = { 0.5f, -0.5f, -0.5f,            105,105,105,        0.0f, 1.0f, 0.0f };
+    vertices[0] = { -0.5f, -0.5f, 0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[1] = { 0.5f, -0.5f, 0.5f,        105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[2] = { 0.5f, -0.5f, -0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
 
-    vertices[3] = { -0.5f, -0.5f, 0.5f,        105,105,105,        0.0f, 1.0f, 0.0f };
-    vertices[4] = { -0.5f, -0.5f, -0.5f,        105,105,105,        0.0f, 1.0f, 0.0f };
-    vertices[5] = { 0.5f, -0.5f, -0.5f,            105,105,105,        0.0f, 1.0f, 0.0f };
+    vertices[3] = { -0.5f, -0.5f, 0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[4] = { -0.5f, -0.5f, -0.5f,      105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[5] = { 0.5f, -0.5f, -0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
 
-    vertices[6] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
-    vertices[7] = { -0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
-    vertices[8] = { 0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
+    //BOX
 
-    vertices[9] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
-    vertices[10] = { 0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
-    vertices[11] = { 0.5f, -0.5f, 0.5f,			255,0,0,		0.0f, 0.0f, 1.0f };
+    //front face
+    vertices[6] = { -0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+    vertices[7] = { -0.5f, -0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+    vertices[8] = { 0.5f, -0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+
+    vertices[9] = { -0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+    vertices[10] = { 0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+    vertices[11] = { 0.5f, -0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, 1.0f };
+
 
     // right face
-    vertices[12] = { 0.5f, 0.5f, 0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
-    vertices[13] = { 0.5f, -0.5f, 0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
-    vertices[14] = { 0.5f, -0.5f, -0.5f,			255,0,0,		1.0f, 0.0f, 0.0f };
+    vertices[12] = { 0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
+    vertices[13] = { 0.5f, -0.5f, 0.5f,		255,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
+    vertices[14] = { 0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
 
-    vertices[15] = { 0.5f, 0.5f, 0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
-    vertices[16] = { 0.5f, 0.5f, -0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
-    vertices[17] = { 0.5f, -0.5f, -0.5f,			255,0,0,		1.0f, 0.0f, 0.0f };
+    vertices[15] = { 0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
+    vertices[16] = { 0.5f, 0.5f, -0.5f,		255,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
+    vertices[17] = { 0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		1.0f, 0.0f, 0.0f };
 
     // back face
-    vertices[18] = { -0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
-    vertices[19] = { -0.5f, -0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
-    vertices[20] = { 0.5f, -0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
+    vertices[18] = { -0.5f, 0.5f, -0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
+    vertices[19] = { -0.5f, -0.5f, -0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
+    vertices[20] = { 0.5f, -0.5f, -0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
 
-    vertices[21] = { -0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
-    vertices[22] = { 0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
-    vertices[23] = { 0.5f, -0.5f, -0.5f,			255,0,0,		0.0f, 0.0f, -1.0f };
+    vertices[21] = { -0.5f, 0.5f, -0.5f,	255,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
+    vertices[22] = { 0.5f, 0.5f, -0.5f,		255,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
+    vertices[23] = { 0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		0.0f, 0.0f, -1.0f };
 
     // left face
-    vertices[24] = { -0.5f, 0.5f, 0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
-    vertices[25] = { -0.5f, -0.5f, 0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
-    vertices[26] = { -0.5f, -0.5f, -0.5f,			255,0,0,		-1.0f, 0.0f, 0.0f };
+    vertices[24] = { -0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
+    vertices[25] = { -0.5f, -0.5f, 0.5f,	255,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
+    vertices[26] = { -0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
 
-    vertices[27] = { -0.5f, 0.5f, 0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
-    vertices[28] = { -0.5f, 0.5f, -0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
-    vertices[29] = { -0.5f, -0.5f, -0.5f,			255,0,0,		-1.0f, 0.0f, 0.0f };
+    vertices[27] = { -0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
+    vertices[28] = { -0.5f, 0.5f, -0.5f,	255,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
+    vertices[29] = { -0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		-1.0f, 0.0f, 0.0f };
 
     // top face
-    vertices[30] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
-    vertices[31] = { 0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
-    vertices[32] = { 0.5f, 0.5f, -0.5f,			255,0,0,		0.0f, 1.0f, 0.0f };
+    vertices[30] = { -0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[31] = { 0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[32] = { 0.5f, 0.5f, -0.5f,		255,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
 
-    vertices[33] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
-    vertices[34] = { -0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
-    vertices[35] = { 0.5f, 0.5f, -0.5f,			255,0,0,		0.0f, 1.0f, 0.0f };
+    vertices[33] = { -0.5f, 0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[34] = { -0.5f, 0.5f, -0.5f,	255,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[35] = { 0.5f, 0.5f, -0.5f,		255,0,0,      0.f,0.f,		0.0f, 1.0f, 0.0f };
 
     // bottom face
-    vertices[36] = { -0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
-    vertices[37] = { 0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
-    vertices[38] = { 0.5f, -0.5f, -0.5f,			255,0,0,		0.0f, -1.0f, 0.0f };
+    vertices[36] = { -0.5f, -0.5f, 0.5f,	255,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[37] = { 0.5f, -0.5f, 0.5f,		255,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[38] = { 0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
 
-    vertices[39] = { -0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
-    vertices[40] = { -0.5f, -0.5f, -0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
-    vertices[41] = { 0.5f, -0.5f, -0.5f,			255,0,0,		0.0f, -1.0f, 0.0f };
-
-
-    // plane reused bottom face
-    vertices[42] = { -0.5f, -0.5f, 0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[43] = { 0.5f, -0.5f, 0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[44] = { 0.5f, -0.5f, -0.5f,			105,105,105,		0.0f, 1.0f, 0.0f };
-
-    vertices[45] = { -0.5f, -0.5f, 0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[46] = { -0.5f, -0.5f, -0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[47] = { 0.5f, -0.5f, -0.5f,			105,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[39] = { -0.5f, -0.5f, 0.5f,	255,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[40] = { -0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[41] = { 0.5f, -0.5f, -0.5f,	255,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
 
     //LAMP
+    // TOP OF LAMP
+#pragma region PYRAMID
+//PYRMID
+    vertices[42] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		0.0f, 0.0f,		0.0f, 0.1f, -0.8f };	//BACK
+    vertices[43] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, 0.1f, -0.8f };
+    vertices[44] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.0f, 0.1f, -0.8f };
 
+    vertices[45] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.0f, 0.1f, 0.8f };	//FRONT
+    vertices[46] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, 0.1f, 0.8f };
+    vertices[47] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.0f, 0.1f, 0.8f };
+
+    vertices[48] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f,		-0.8f, 0.1f, 0.f };	//LEFT
+    vertices[49] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		-0.8f, 0.1f, 0.f };
+    vertices[50] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		-0.8f, 0.1f, 0.f };
+
+    vertices[51] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f,		0.8f, 0.1f, 0.f };	//RIGHT
+    vertices[52] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.8f, 0.1f, 0.f };
+    vertices[53] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.8f, 0.1f, 0.f };
+
+    vertices[54] = { -0.5f, -0.5f, 0.5f,		255, 125, 255,		0.0f, 0.0f,		0.0f, -1.0f, 0.0f };	//BELOW TOP LEFT
+    vertices[55] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, -1.0f, 0.0f };
+    vertices[56] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f,		0.0f, -1.0f, 0.0f };
+
+    vertices[57] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f,		0.0f, -1.0f, 0.0f };	//BELOW BOTTOM RIGHT
+    vertices[58] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, -1.0f, 0.0f };
+    vertices[59] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f,		0.0f, -1.0f, 0.0f };
+#pragma endregion
+
+    //Top Reuse the box
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -273,9 +296,13 @@ int main()
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)(offsetof(Vertex, r)));
 
-    // Vertex attribute 2 - Normal
+    // Vertex attribute 2 - UV coordinate
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, nx)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, u)));
+
+    //Vertex Attribute 3 - Normal
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, nx)));
 
     glBindVertexArray(0);
 
@@ -365,6 +392,11 @@ int main()
         }
         glm::mat4 planeTransform = glm::mat4(1.0f);
         glm::mat4 cabinetTransform = glm::mat4(1.0f);
+        glm::mat4 topLampTransform = glm::mat4(1.0f);
+        glm::mat4 midLampTransform = glm::mat4(1.0f);
+        glm::mat4 botLampTransform = glm::mat4(1.0f);
+        glm::vec3 color;
+
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
         GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
@@ -383,12 +415,30 @@ int main()
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(planeTransform));
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
-
         cabinetTransform = glm::translate(cabinetTransform, glm::vec3(3.f, -4.f, -4.f));
         cabinetTransform = glm::scale(cabinetTransform, glm::vec3(2.f, 2.f, 2.f));
-
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
-        glDrawArrays(GL_TRIANGLES, 6, 48);
+        glDrawArrays(GL_TRIANGLES, 6, 36);
+
+
+        topLampTransform = glm::translate(topLampTransform, glm::vec3(3.f, -2.f, -4.f));
+        topLampTransform = glm::scale(topLampTransform, glm::vec3(0.8f, 0.8f, 0.8f));
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
+        glDrawArrays(GL_TRIANGLES, 42, 18);
+
+        midLampTransform = glm::translate(midLampTransform, glm::vec3(3.f, -2.5f, -4.f));
+        midLampTransform = glm::scale(midLampTransform, glm::vec3(0.1f, 1.f, 0.1f));
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(midLampTransform));
+        glDrawArrays(GL_TRIANGLES, 6, 36);
+
+        botLampTransform = glm::translate(botLampTransform, glm::vec3(3.f, -3.f, -4.f));
+        botLampTransform = glm::scale(botLampTransform, glm::vec3(0.5f, 0.3f, 0.5f));
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(botLampTransform));
+       
+
+        glDrawArrays(GL_TRIANGLES, 6, 36);
+
+
         // "Unuse" the vertex array object
         glBindVertexArray(0);
 
