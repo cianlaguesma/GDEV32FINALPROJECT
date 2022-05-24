@@ -218,7 +218,7 @@ int main()
 #ifdef OSisWindows
     GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 #else
-    GLuint program = CreateShaderProgram("/Users/tomy/dev/GDEV32FINALPROJECT/FinalProject/main.vsh", "/Users/tomy/dev/GDEV32FINALPROJECT/FinalProject/main.fsh");
+    GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 #endif
 
     GLuint depthVAO;
@@ -274,10 +274,13 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //Use Shader Program
-        //glUseProgram(program);
+        glUseProgram(program);
 
         // Use the vertex array object that we created
-        //glBindVertexArray(vao);
+        glBindVertexArray(vao);
+
+
+        glActiveTexture(GL_TEXTURE0);
 
         int upstate = glfwGetKey(window, GLFW_KEY_W);
         int downstate = glfwGetKey(window, GLFW_KEY_S);
@@ -295,9 +298,24 @@ int main()
         else if (leftstate == GLFW_PRESS) {
             cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         }
+        glm::mat4 planeTransform = glm::mat4(1.0f);
+        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
+        GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
 
+        GLint viewUniformLocation = glGetUniformLocation(program, "view");
+        glUniformMatrix4fv(viewUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+
+        GLint projectionUniformLocation = glGetUniformLocation(program, "projection");
+        glUniformMatrix4fv(projectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+        planeTransform = glm::rotate(planeTransform, glm::radians(0.0f), glm::vec3(0.f, 1.0f, 0.0f));
+        planeTransform = glm::scale(planeTransform, glm::vec3(10.0f, 10.0f, 10.0f));
+
+
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(planeTransform));
         glDrawArrays(GL_TRIANGLES, 0, 6);
-
         // "Unuse" the vertex array object
         glBindVertexArray(0);
 
