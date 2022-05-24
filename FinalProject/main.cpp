@@ -286,119 +286,119 @@ int main()
     //Top Reuse the box
     // BED
     // LOWER FRAME
-    vertices[60] = { -0.75f, 0.0f, 1.0f,		231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[61] = { -0.75f, 0.0f, 0.f,		231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[62] = { 0.75f, 0.0f, 0.f,			231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[60] = { -0.75f, 0.0f, 1.0f,		231,105,105,    0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[61] = { -0.75f, 0.0f, 0.f,		    231,105,105,    0.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[62] = { 0.75f, 0.0f, 0.f,			231,105,105,    1.f,1.f,		0.0f, 1.0f, 0.0f };
 
-    vertices[63] = { -0.75f, 0.0f, 1.0f,		231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[64] = { 0.75f, 0.0f, 0.f,			231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[65] = { 0.75f, 0.0f, 1.0f,			231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[63] = { -0.75f, 0.0f, 1.0f,		231,105,105,    0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[64] = { 0.75f, 0.0f, 0.f,			231,105,105,    1.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[65] = { 0.75f, 0.0f, 1.0f,			231,105,105,    1.f,0.f,		0.0f, 1.0f, 0.0f };
 
     // UPPER FRAME
-    vertices[66] = { -0.75f, 0.15f, 1.0f,		231,235,105,		0.0f, 1.0f, 0.0f };
-    vertices[67] = { -0.75f, 0.15f, 0.f,		231,235,105,		0.0f, 1.0f, 0.0f };
-    vertices[68] = { 0.75f, 0.15f, 0.f,			231,235,105,		0.0f, 1.0f, 0.0f };
+    vertices[66] = { -0.75f, 0.15f, 1.0f,		231,235,105,    0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[67] = { -0.75f, 0.15f, 0.f,		231,235,105,    0.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[68] = { 0.75f, 0.15f, 0.f,			231,235,105,    1.f,1.f,		0.0f, 1.0f, 0.0f };
 
-    vertices[69] = { -0.75f, 0.15f, 1.0f,		231,235,105,		0.0f, 1.0f, 0.0f };
-    vertices[70] = { 0.75f, 0.15f, 0.f,			231,235,105,		0.0f, 1.0f, 0.0f };
-    vertices[71] = { 0.75f, 0.15f, 1.0f,			231,235,105,		0.0f, 1.0f, 0.0f };
-
+    vertices[69] = { -0.75f, 0.15f, 1.0f,		231,235,105,    0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[70] = { 0.75f, 0.15f, 0.f,			231,235,105,    1.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[71] = { 0.75f, 0.15f, 1.0f,		231,235,105,    1.f,0.f,		0.0f, 1.0f, 0.0f };
+    
     // CONNECTOR LEFT
-    vertices[72] = { -0.75f, 0.0f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[73] = { -0.75f, 0.0f, 0.f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[74] = { -0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[72] = { -0.75f, 0.0f, 1.0f,		231,235,155,    0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[73] = { -0.75f, 0.0f, 0.f,		    231,235,155,	1.f,0.f,   	0.0f, 1.0f, 0.0f };
+    vertices[74] = { -0.75f, 0.15f, 0.f,		231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[75] = { -0.75f, 0.15f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[76] = { -0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[77] = { -0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[75] = { -0.75f, 0.15f, 1.0f,		231,235,155,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[76] = { -0.75f, 0.15f, 0.f,		231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[77] = { -0.75f, 0.f, 1.0f,			231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
     // CONNECTOR RIGHT
-    vertices[78] = { 0.75f, 0.0f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[79] = { 0.75f, 0.0f, 0.f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[80] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[78] = { 0.75f, 0.0f, 1.0f,		    231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[79] = { 0.75f, 0.0f, 0.f,		    231,235,155,	1.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[80] = { 0.75f, 0.15f, 0.f,			231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[81] = { 0.75f, 0.15f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[82] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[83] = { 0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[81] = { 0.75f, 0.15f, 1.0f,		231,235,155,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[82] = { 0.75f, 0.15f, 0.f,			231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[83] = { 0.75f, 0.f, 1.0f,			231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
 
     // CONNECTOR BOTTOM
-    vertices[84] = { -0.75f, 0.0f, 0.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[85] = { -0.75f, 0.15f, 0.f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[86] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[84] = { -0.75f, 0.0f, 0.0f,		231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[85] = { -0.75f, 0.15f, 0.f,		231,235,155,	1.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[86] = { 0.75f, 0.15f, 0.f,			231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[87] = { 0.75f, 0.f, 0.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[88] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[89] = { -0.75f, 0.f, 0.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[87] = { 0.75f, 0.f, 0.0f,		    231,235,155,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[88] = { 0.75f, 0.15f, 0.f,			231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[89] = { -0.75f, 0.f, 0.0f,			231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
     
     // CONNECTOR TOP
-    vertices[90] = { -0.75f, 0.0f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[91] = { -0.75f, 0.15f, 1.f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[92] = { 0.75f, 0.15f, 1.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[90] = { -0.75f, 0.0f, 1.0f,		231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[91] = { -0.75f, 0.15f, 1.f,		231,235,155,	1.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[92] = { 0.75f, 0.15f, 1.f,			231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[93] = { 0.75f, 0.f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[94] = { 0.75f, 0.15f, 1.f,			231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[95] = { -0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[93] = { 0.75f, 0.f, 1.0f,		    231,235,155,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[94] = { 0.75f, 0.15f, 1.f,			231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[95] = { -0.75f, 0.f, 1.0f,			231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
 
     // BED FRAME
      // CONNECTOR LEFT
-    vertices[96] = { -0.80f, -0.1f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[97] = { -0.80f, -0.1f, -0.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[98] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[96] = { -0.80f, -0.1f, 1.05f,		231,123,45,     0.f,0.f, 	0.0f, 1.0f, 0.0f };
+    vertices[97] = { -0.80f, -0.1f, -0.05f,		231,123,45,     1.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[98] = { -0.80f, 0.12f, -0.05f,		231,123,45,     1.f,1.f,		0.0f, 1.0f, 0.0f };
 
-    vertices[99] = { -0.80f, 0.12f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[100] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[101] = { -0.80f, -0.1f, 1.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[99] = { -0.80f, 0.12f, 1.05f,		231,123,45,     0.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[100] = { -0.80f, 0.12f, -0.05f,	231,123,45,     1.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[101] = { -0.80f, -0.1f, 1.05f,		231,123,45,     0.f,0.f,		0.0f, 1.0f, 0.0f };
 
     // CONNECTOR RIGHT
-    vertices[102] = { 0.80f, -0.1f, 1.05f,		231,123,123,		0.0f, 1.0f, 0.0f };
-    vertices[103] = { 0.80f, -0.1f, -0.05f,		231,123,123,		0.0f, 1.0f, 0.0f };
-    vertices[104] = { 0.80f, 0.12f, -0.05f,			231,123,123,		0.0f, 1.0f, 0.0f };
+    vertices[102] = { 0.80f, -0.1f, 1.05f,		231,123,123,    0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[103] = { 0.80f, -0.1f, -0.05f,		231,123,123,    1.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[104] = { 0.80f, 0.12f, -0.05f,		231,123,123,    1.f,1.f,		0.0f, 1.0f, 0.0f };
 
-    vertices[105] = { 0.80f, 0.12f, 1.05f,		231,123,123,		0.0f, 1.0f, 0.0f };
-    vertices[106] = { 0.80f, 0.12f, -0.05f,			231,123,123,		0.0f, 1.0f, 0.0f };
-    vertices[107] = { 0.80f, -0.1f, 1.05f,			231,123,123,		0.0f, 1.0f, 0.0f };
+    vertices[105] = { 0.80f, 0.12f, 1.05f,		231,123,123,    0.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[106] = { 0.80f, 0.12f, -0.05f,		231,123,123,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[107] = { 0.80f, -0.1f, 1.05f,		231,123,123,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
     // CONNECTOR BOTTOM
-    vertices[108] = { -0.80f, -0.1f, -0.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[109] = { -0.80f, 0.12f, -0.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[110] = { 0.80f, 0.12f, -0.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[108] = { -0.80f, -0.1f, -0.05f,	231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[109] = { -0.80f, 0.12f, -0.05f,	231,235,155,	1.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[110] = { 0.80f, 0.12f, -0.05f,		231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[111] = { 0.80f, -0.1f, -0.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[112] = { 0.80f, 0.12f, -0.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[113] = { -0.80f, -0.1f, -0.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[111] = { 0.80f, -0.1f, -0.05f,		231,235,155,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[112] = { 0.80f, 0.12f, -0.05f,		231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[113] = { -0.80f, -0.1f, -0.05f,	231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
 
     // CONNECTOR TOP
-    vertices[114] = { -0.80f, -0.1f, 1.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[115] = { -0.80f, 0.12f, 1.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[116] = { 0.80f, 0.12f, 1.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[114] = { -0.80f, -0.1f, 1.05f,		231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[115] = { -0.80f, 0.12f, 1.05f,		231,235,155,	1.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[116] = { 0.80f, 0.12f, 1.05f,		231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[117] = { 0.80f, -0.1f, 1.05f,		231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[118] = { 0.80f, 0.12f, 1.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
-    vertices[119] = { -0.80f, -0.1f, 1.05f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[117] = { 0.80f, -0.1f, 1.05f,		231,235,155,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[118] = { 0.80f, 0.12f, 1.05f,		231,235,155,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[119] = { -0.80f, -0.1f, 1.05f,		231,235,155,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
     // BOTTOM FRAME FACE
 
-    vertices[120] = { -0.80f, -0.1f, 1.05f,		231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[121] = { -0.80f, -0.1f, -0.05f,		231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[122] = { 0.80f, -0.1f, -0.05f,			231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[120] = { -0.80f, -0.1f, 1.05f,		231,105,105,	0.f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[121] = { -0.80f, -0.1f, -0.05f,	231,105,105,	1.0f,0.f,	0.0f, 1.0f, 0.0f };
+    vertices[122] = { 0.80f, -0.1f, -0.05f,		231,105,105,	1.f,1.f,	0.0f, 1.0f, 0.0f };
 
-    vertices[123] = { -0.80f, -0.1f, 1.05f,		231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[124] = { 0.80f, -0.1f, -0.05f,			231,105,105,		0.0f, 1.0f, 0.0f };
-    vertices[125] = { 0.80f, -0.1f, 1.05f,			231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[123] = { -0.80f, -0.1f, 1.05f,		231,105,105,	0.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[124] = { 0.80f, -0.1f, -0.05f,		231,105,105,	1.f,1.f,	0.0f, 1.0f, 0.0f };
+    vertices[125] = { 0.80f, -0.1f, 1.05f,		231,105,105,	0.f,0.f,	0.0f, 1.0f, 0.0f };
 
     // Back Frame
 
-    vertices[126] = { -0.80f, 0.12f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[127] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[128] = { -0.80f, 0.5f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[126] = { -0.80f, 0.12f, 1.05f,		231,123,45,     0.f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[127] = { -0.80f, 0.12f, -0.05f,	231,123,45,     1.0f,0.f,		0.0f, 1.0f, 0.0f };
+    vertices[128] = { -0.80f, 0.5f, -0.05f,		231,123,45,     1.f,1.f,		0.0f, 1.0f, 0.0f };
 
-    vertices[129] = { -0.80f, 0.12f, 1.05f,		231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[130] = { -0.80f, 0.12f, -0.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
-    vertices[131] = { -0.80f, 0.5f, 1.05f,			231,123,45,		0.0f, 1.0f, 0.0f };
+    vertices[129] = { -0.80f, 0.12f, 1.05f,		231,123,45,     0.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[130] = { -0.80f, 0.12f, -0.05f,	231,123,45,     1.f,1.f,		0.0f, 1.0f, 0.0f };
+    vertices[131] = { -0.80f, 0.5f, 1.05f,		231,123,45,     0.f,0.f,		0.0f, 1.0f, 0.0f };
 
 
 
@@ -569,7 +569,42 @@ int main()
 
 
 #pragma endregion
-    
+#pragma region FOURTHTEXTURE
+
+
+    //THIS IS FOR THE FOURTH TEXTURE
+    GLuint tex3;
+    glGenTextures(1, &tex3);
+    stbi_set_flip_vertically_on_load(true);
+
+    imageData = stbi_load("bedTop.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
+    if (imageData != nullptr)
+    {
+        glBindTexture(GL_TEXTURE_2D, tex3);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
+
+
+    stbi_set_flip_vertically_on_load(true);
+
+
+#pragma endregion
     // Framebuffer
     GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
@@ -634,6 +669,7 @@ int main()
         glm::vec3 color;
 
         glm::mat4 bedTransform = glm::mat4(1.0f);
+        glm::mat4 belowBed = glm::mat4(1.0f);
 
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
@@ -682,17 +718,20 @@ int main()
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(botLampTransform)); 
         glDrawArrays(GL_TRIANGLES, 6, 36);
 
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
 
-        glDrawArrays(GL_TRIANGLES, 6, 48);
-       
-        bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.f, -4.f));
-        bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 2.f, 2.f));
+        glBindTexture(GL_TEXTURE_2D, tex3);
+        bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.8f, -4.f));
+        bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 3.5f, 2.f));
 
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
-
-        glDrawArrays(GL_TRIANGLES, 60, 78);
+        //bedtop
+        glDrawArrays(GL_TRIANGLES, 60, 36);
+        glBindTexture(GL_TEXTURE_2D, tex2);
+        //bedbelow
+        belowBed = glm::translate(belowBed, glm::vec3(-3.f, -4.7f, -4.f));
+        belowBed = glm::scale(belowBed, glm::vec3(2.f, 3.f, 2.f));
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
+        glDrawArrays(GL_TRIANGLES, 96, 36);
 
         //LIGHTS
         float constant = 1.0f;
@@ -708,7 +747,7 @@ int main()
 
         light.lightPos = glm::vec3(-3.5f, 3.5f, 9.f);
         light.lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-        light.diffuseColor = light.lightColor * glm::vec3(0.5f);
+        light.diffuseColor = light.lightColor * glm::vec3(1.f);
         light.ambientColor = light.diffuseColor * glm::vec3(0.3f);
         light.specular = glm::vec3(1.f, 1.f, 1.f);
         light.lightDirection = glm::vec3(1.2f, 4.0f, -6.0f);
