@@ -29,6 +29,8 @@ out vec3 outVertexPos;
 uniform mat4 lightProjection;
 uniform mat4 view, projection, transformationMatrix;
 
+
+
 void main()
 {
 
