@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 
+#include <vector>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -185,7 +187,7 @@ int main()
     // (red = 0.0, green = 0.0, blue = 1.0)
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-    Vertex vertices[200];
+    Vertex vertices[250];
 
   
     // plane reused bottom face
@@ -482,6 +484,57 @@ int main()
     vertices[183] = { -0.5f, -0.5f, 0.5f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
     vertices[184] = { -0.5f, -0.5f, -0.5f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
     vertices[185] = { 0.5f, -0.5f, -0.5f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+
+    // SKYBOX
+    
+    vertices[186] = { -1.0f,  1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[187] = { -1.0f, -1.0f, -1.0f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[188] = { 1.0f, -1.0f, -1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[189] = { 1.0f, -1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[190] = { 1.0f,  1.0f, -1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[191] = { -1.0f,  1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[192] = { -1.0f, -1.0f,  1.0f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[193] = { -1.0f, -1.0f, -1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[194] = { -1.0f,  1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[195] = { -1.0f,  1.0f, -1.0f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[196] = { -1.0f,  1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[197] = { -1.0f, -1.0f,  1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[198] = { 1.0f, -1.0f, -1.0f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[199] = { 1.0f, -1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[200] = { 1.0f,  1.0f,  1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[201] = { 1.0f,  1.0f,  1.0f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[202] = { 1.0f,  1.0f, -1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[203] = { 1.0f, -1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[204] = { -1.0f, -1.0f,  1.0f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[205] = { -1.0f,  1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[206] = { 1.0f,  1.0f,  1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[207] = { 1.0f,  1.0f,  1.0f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[208] = { 1.0f, -1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[209] = { -1.0f, -1.0f,  1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[210] = { -1.0f,  1.0f, -1.0f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[211] = { 1.0f,  1.0f, -1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[212] = { 1.0f,  1.0f,  1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[213] = { 1.0f,  1.0f,  1.0f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[214] = { -1.0f,  1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[215] = { -1.0f,  1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[216] = { -1.0f, -1.0f, -1.0f,		0,0,0,      1.f,0.f,		0.0f, -1.0f, 0.0f };
+    vertices[217] = { -1.0f, -1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[218] = { 1.0f, -1.0f, -1.0f,	0,0,0,      0.f,0.f,		0.0f, -1.0f, 0.0f };
+
+    vertices[219] = { 1.0f, -1.0f, -1.0f,	0,0,0,      0.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[220] = { -1.0f, -1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    vertices[221] = { 1.0f, -1.0f,  1.0f,	0,0,0,      1.f,1.f,		0.0f, -1.0f, 0.0f };
+    
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -536,6 +589,17 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glBindVertexArray(0);
     GLuint depthShader = CreateShaderProgram("depth.vsh", "depth.fsh");
+
+
+    GLuint skyboxVAO;
+    glGenVertexArrays(1, &skyboxVAO);
+    glBindVertexArray(skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    GLuint skyboxShader = CreateShaderProgram("skybox.vsh", "skybox.fsh");
+
     
 
     // Tell OpenGL the dimensions of the region where stuff will be drawn.
@@ -836,6 +900,45 @@ int main()
 
 
 #pragma endregion
+
+    GLuint skyboxTex;
+    glGenTextures(1, &skyboxTex);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
+
+
+    std::vector<std::string> cubeMapFaces { 
+            "space-skybox-right.jpg",
+            "space-skybox-left.jpg",
+            "space-skybox-top.jpg",
+            "space-skybox-bottom.jpg",
+            "space-skybox-front.jpg",
+
+            "space-skybox-back.jpg",
+
+    };
+    stbi_set_flip_vertically_on_load(false);
+    for (int i = 0; i < cubeMapFaces.size(); i++) {
+        imageData = stbi_load(cubeMapFaces[i].c_str(), &imageWidth, &imageHeight, &numChannels, 0);
+        if (imageData != nullptr) {
+            std::cout << "Loading... " << cubeMapFaces[i] << std::endl;
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+            stbi_image_free(imageData);
+        }
+        else
+        {
+            std::cerr << "Failed to load image "  << cubeMapFaces[i] << std::endl;
+        }
+    }
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, 0);
+
+
     // Framebuffer
     GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
@@ -919,6 +1022,16 @@ int main()
         else if (leftArrowState == GLFW_PRESS) {
             movingFacePosition -= x * movingFaceSpeed;
         }
+        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
+
+
+
+
+
+
+
+  
 
 #pragma region firstpass
         glUseProgram(depthShader);
@@ -951,10 +1064,6 @@ int main()
         glm::mat4 sims = glm::mat4(1.0f);
         glm::mat4 simsBelow = glm::mat4(1.0f);
         glm::mat4 movingFace = glm::mat4(1.0f);
-
-        glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
-
 
 
 
@@ -1018,6 +1127,8 @@ int main()
 #pragma endregion
 
 #pragma region secondpass
+
+
 
         //Use Shader Program
         glUseProgram(program);
@@ -1242,6 +1353,30 @@ int main()
         glUniformMatrix4fv(matLightUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
 
         glDrawArrays(GL_TRIANGLES, 132, 18);
+
+
+        // SKYBOX
+        glDepthFunc(GL_LEQUAL); // disables depth so always at background
+        glUseProgram(skyboxShader);
+        view = glm::mat4(glm::mat3(view));
+
+
+
+
+        GLint viewSkyUniformLocation = glGetUniformLocation(skyboxShader, "view");
+        glUniformMatrix4fv(viewSkyUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+        GLint projectionSkyUniformLocation = glGetUniformLocation(skyboxShader, "projection");
+        glUniformMatrix4fv(projectionSkyUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
+        
+        glBindVertexArray(skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
+        glDrawArrays(GL_TRIANGLES, 186, 36);
+        glBindVertexArray(0);
+        glDepthFunc(GL_LESS);  // set depth function back to default
+
+
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
