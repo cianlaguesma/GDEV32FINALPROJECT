@@ -436,11 +436,10 @@ int main()
     glBindVertexArray(0);
 
     // Create a shader program
-#ifdef OSisWindows
+
     GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
-#else
-    GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
-#endif
+
+
 
     GLuint depthVAO;
     glGenVertexArrays(1, &depthVAO);
@@ -460,6 +459,13 @@ int main()
     //mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, mouse_callback);
+
+    GLuint lightVAO;
+    glGenVertexArrays(1, &lightVAO);
+    glBindVertexArray(lightVAO);
+
+
+    GLuint lightShader = CreateShaderProgram("light.vsh", "light.fsh");
 
 #pragma region FIRSTTEXTURE
     //THIS IS FOR THE FIRST TEXTURE
@@ -663,7 +669,7 @@ int main()
         }
         glm::mat4 planeTransform = glm::mat4(1.0f);
         glm::mat4 cabinetTransform = glm::mat4(1.0f);
-        glm::mat4 topLampTransform = glm::mat4(1.0f);
+
         glm::mat4 midLampTransform = glm::mat4(1.0f);
         glm::mat4 botLampTransform = glm::mat4(1.0f);
         glm::vec3 color;
@@ -697,12 +703,6 @@ int main()
         cabinetTransform = glm::scale(cabinetTransform, glm::vec3(2.f, 2.f, 2.f));
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
         glDrawArrays(GL_TRIANGLES, 6, 36);
-
-        glBindTexture(GL_TEXTURE_2D, tex0);
-        topLampTransform = glm::translate(topLampTransform, glm::vec3(3.f, -2.f, -4.f));
-        topLampTransform = glm::scale(topLampTransform, glm::vec3(0.8f, 0.8f, 0.8f));
-        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
-        glDrawArrays(GL_TRIANGLES, 42, 18);
 
 
         glBindTexture(GL_TEXTURE_2D, tex2);
@@ -826,6 +826,30 @@ int main()
         glUniform1f(pointQuadraticUniform, quadratic);
 
 #pragma endregion
+
+        glBindVertexArray(lightVAO);
+        glUseProgram(lightShader);
+        GLint matLightUniformLocation = glGetUniformLocation(lightShader, "transformationMatrix");
+
+        GLint viewLightUniformLocation = glGetUniformLocation(lightShader, "view");
+        glUniformMatrix4fv(viewLightUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+        GLint projectionLightUniformLocation = glGetUniformLocation(lightShader, "projection");
+        glUniformMatrix4fv(projectionLightUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+
+        GLint light2ColorLocation = glGetUniformLocation(lightShader, "lightColor");
+        glUniform3fv(light2ColorLocation, 1, glm::value_ptr(light2.lightColor));
+
+
+        glm::mat4 topLampTransform = glm::mat4(1.0f);
+        topLampTransform = glm::scale(topLampTransform, glm::vec3(0.8f, 0.8f, 0.8f));
+        topLampTransform = glm::translate(topLampTransform, light2.lightPos);
+        glUniformMatrix4fv(matLightUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
+
+
+        
+        glDrawArrays(GL_TRIANGLES, 42, 18);
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
