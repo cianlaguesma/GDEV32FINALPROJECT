@@ -467,8 +467,11 @@ int main()
     GLuint lightVAO;
     glGenVertexArrays(1, &lightVAO);
     glBindVertexArray(lightVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
 
-
+    GLuint lightShader = CreateShaderProgram("light.vsh", "light.fsh");
 
     GLuint depthVAO;
     glGenVertexArrays(1, &depthVAO);
@@ -490,7 +493,6 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
 
 
-    GLuint lightShader = CreateShaderProgram("light.vsh", "light.fsh");
     glViewport(0, 0, windowWidth, windowHeight);
 
 #pragma region FIRSTTEXTURE
@@ -873,8 +875,6 @@ int main()
         topLampTransform = glm::translate(topLampTransform, light2.lightPos);
         glUniformMatrix4fv(matLightUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
 
-
-        
         glDrawArrays(GL_TRIANGLES, 132, 18);
 
         // "Unuse" the vertex array object
