@@ -185,7 +185,7 @@ int main()
     // (red = 0.0, green = 0.0, blue = 1.0)
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-    Vertex vertices[150];
+    Vertex vertices[200];
 
   
     // plane reused bottom face
@@ -401,6 +401,31 @@ int main()
     vertices[131] = { -0.80f, 0.5f, 1.05f,		231,123,45,     0.f,0.f,		0.0f, 1.0f, 0.0f };
 
 
+    //PYRMID
+    vertices[132] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		0.0f, 0.0f,		0.0f, 0.1f, -0.8f };	//BACK
+    vertices[133] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, 0.1f, -0.8f };
+    vertices[134] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.0f, 0.1f, -0.8f };
+
+    vertices[135] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.0f, 0.1f, 0.8f };	//FRONT
+    vertices[136] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, 0.1f, 0.8f };
+    vertices[137] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.0f, 0.1f, 0.8f };
+
+    vertices[138] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f,		-0.8f, 0.1f, 0.f };	//LEFT
+    vertices[139] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		-0.8f, 0.1f, 0.f };
+    vertices[140] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		-0.8f, 0.1f, 0.f };
+
+    vertices[141] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f,		0.8f, 0.1f, 0.f };	//RIGHT
+    vertices[142] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.8f, 0.1f, 0.f };
+    vertices[143] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.8f, 0.1f, 0.f };
+
+    vertices[144] = { -0.5f, -0.5f, 0.5f,		255, 125, 255,		0.0f, 0.0f,		0.0f, -1.0f, 0.0f };	//BELOW TOP LEFT
+    vertices[145] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, -1.0f, 0.0f };
+    vertices[146] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f,		0.0f, -1.0f, 0.0f };
+
+    vertices[147] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f,		0.0f, -1.0f, 0.0f };	//BELOW BOTTOM RIGHT
+    vertices[148] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, -1.0f, 0.0f };
+    vertices[149] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f,		0.0f, -1.0f, 0.0f };
+
 
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
@@ -436,11 +461,17 @@ int main()
     glBindVertexArray(0);
 
     // Create a shader program
-#ifdef OSisWindows
+
     GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
-#else
-    GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
-#endif
+
+    GLuint lightVAO;
+    glGenVertexArrays(1, &lightVAO);
+    glBindVertexArray(lightVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    GLuint lightShader = CreateShaderProgram("light.vsh", "light.fsh");
 
     GLuint depthVAO;
     glGenVertexArrays(1, &depthVAO);
@@ -460,6 +491,9 @@ int main()
     //mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, mouse_callback);
+
+
+    glViewport(0, 0, windowWidth, windowHeight);
 
 #pragma region FIRSTTEXTURE
     //THIS IS FOR THE FIRST TEXTURE
@@ -628,7 +662,7 @@ int main()
         std::cout << "Error! Framebuffer not complete!" << std::endl;
     }
     
-    //glViewport(0, 0, windowWidth, windowHeight);
+    glViewport(0, 0, windowWidth, windowHeight);
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -663,7 +697,7 @@ int main()
         }
         glm::mat4 planeTransform = glm::mat4(1.0f);
         glm::mat4 cabinetTransform = glm::mat4(1.0f);
-        glm::mat4 topLampTransform = glm::mat4(1.0f);
+
         glm::mat4 midLampTransform = glm::mat4(1.0f);
         glm::mat4 botLampTransform = glm::mat4(1.0f);
         glm::vec3 color;
@@ -697,12 +731,6 @@ int main()
         cabinetTransform = glm::scale(cabinetTransform, glm::vec3(2.f, 2.f, 2.f));
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
         glDrawArrays(GL_TRIANGLES, 6, 36);
-
-        glBindTexture(GL_TEXTURE_2D, tex0);
-        topLampTransform = glm::translate(topLampTransform, glm::vec3(3.f, -2.f, -4.f));
-        topLampTransform = glm::scale(topLampTransform, glm::vec3(0.8f, 0.8f, 0.8f));
-        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
-        glDrawArrays(GL_TRIANGLES, 42, 18);
 
 
         glBindTexture(GL_TEXTURE_2D, tex2);
@@ -826,6 +854,28 @@ int main()
         glUniform1f(pointQuadraticUniform, quadratic);
 
 #pragma endregion
+
+        glBindVertexArray(lightVAO);
+        glUseProgram(lightShader);
+        GLint matLightUniformLocation = glGetUniformLocation(lightShader, "transformationMatrix");
+
+        GLint viewLightUniformLocation = glGetUniformLocation(lightShader, "view");
+        glUniformMatrix4fv(viewLightUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+        GLint projectionLightUniformLocation = glGetUniformLocation(lightShader, "projection");
+        glUniformMatrix4fv(projectionLightUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+
+        GLint light2ColorLocation = glGetUniformLocation(lightShader, "lightColor");
+        glUniform3fv(light2ColorLocation, 1, glm::value_ptr(light2.lightColor));
+
+
+        glm::mat4 topLampTransform = glm::mat4(1.0f);
+        topLampTransform = glm::scale(topLampTransform, glm::vec3(0.8f, 0.8f, 0.8f));
+        topLampTransform = glm::translate(topLampTransform, glm::vec3(3.75f, -2.5f, -5.f));
+        glUniformMatrix4fv(matLightUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
+
+        glDrawArrays(GL_TRIANGLES, 132, 18);
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
