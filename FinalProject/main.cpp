@@ -1018,8 +1018,8 @@ int main()
 
         light.lightPos = glm::vec3(0.f, -1.f, 0.f);
         light.lightColor = glm::vec3(0.5f, 1.0f, 1.0f);
-        light.diffuseColor = light.lightColor * glm::vec3(0.5f);
-        light.ambientColor = light.diffuseColor * glm::vec3(0.5f);
+        light.diffuseColor = light.lightColor * glm::vec3(0.8f);
+        light.ambientColor = light.diffuseColor * glm::vec3(0.8f);
         light.specular = glm::vec3(1.f, 1.f, 1.f);
         light.lightDirection = glm::vec3(0.f,-1.0f, 0.75f);
         light.materialAmbient = glm::vec3(1.f, 0.5f, 0.31f);
