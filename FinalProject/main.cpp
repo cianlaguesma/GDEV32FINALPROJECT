@@ -185,7 +185,7 @@ int main()
     // (red = 0.0, green = 0.0, blue = 1.0)
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-    Vertex vertices[150];
+    Vertex vertices[200];
 
   
     // plane reused bottom face
@@ -401,6 +401,31 @@ int main()
     vertices[131] = { -0.80f, 0.5f, 1.05f,		231,123,45,     0.f,0.f,		0.0f, 1.0f, 0.0f };
 
 
+    //PYRMID
+    vertices[132] = { -0.5f, -0.5f, -0.5f,	255, 255, 255,		0.0f, 0.0f,		0.0f, 0.1f, -0.8f };	//BACK
+    vertices[133] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, 0.1f, -0.8f };
+    vertices[134] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.0f, 0.1f, -0.8f };
+
+    vertices[135] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.0f, 0.1f, 0.8f };	//FRONT
+    vertices[136] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, 0.1f, 0.8f };
+    vertices[137] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.0f, 0.1f, 0.8f };
+
+    vertices[138] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 0.0f,		-0.8f, 0.1f, 0.f };	//LEFT
+    vertices[139] = { -0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		-0.8f, 0.1f, 0.f };
+    vertices[140] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		-0.8f, 0.1f, 0.f };
+
+    vertices[141] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 0.0f,		0.8f, 0.1f, 0.f };	//RIGHT
+    vertices[142] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		0.0f, 0.0f,		0.8f, 0.1f, 0.f };
+    vertices[143] = { 0.0f, 0.5f, 0.0f,		255, 255, 255,		0.5f, 1.0f,		0.8f, 0.1f, 0.f };
+
+    vertices[144] = { -0.5f, -0.5f, 0.5f,		255, 125, 255,		0.0f, 0.0f,		0.0f, -1.0f, 0.0f };	//BELOW TOP LEFT
+    vertices[145] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, -1.0f, 0.0f };
+    vertices[146] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f,		0.0f, -1.0f, 0.0f };
+
+    vertices[147] = { -0.5f, -0.5f, -0.5f,		255, 255, 255,		0.0f, 1.0f,		0.0f, -1.0f, 0.0f };	//BELOW BOTTOM RIGHT
+    vertices[148] = { 0.5f, -0.5f, 0.5f,		255, 255, 255,		1.0f, 0.0f,		0.0f, -1.0f, 0.0f };
+    vertices[149] = { 0.5f, -0.5f, -0.5f,		255, 255, 255,		1.0f, 1.0f,		0.0f, -1.0f, 0.0f };
+
 
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
@@ -439,6 +464,10 @@ int main()
 
     GLuint program = CreateShaderProgram("main.vsh", "main.fsh");
 
+    GLuint lightVAO;
+    glGenVertexArrays(1, &lightVAO);
+    glBindVertexArray(lightVAO);
+
 
 
     GLuint depthVAO;
@@ -460,12 +489,9 @@ int main()
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwSetCursorPosCallback(window, mouse_callback);
 
-    GLuint lightVAO;
-    glGenVertexArrays(1, &lightVAO);
-    glBindVertexArray(lightVAO);
-
 
     GLuint lightShader = CreateShaderProgram("light.vsh", "light.fsh");
+    glViewport(0, 0, windowWidth, windowHeight);
 
 #pragma region FIRSTTEXTURE
     //THIS IS FOR THE FIRST TEXTURE
@@ -634,7 +660,7 @@ int main()
         std::cout << "Error! Framebuffer not complete!" << std::endl;
     }
     
-    //glViewport(0, 0, windowWidth, windowHeight);
+    glViewport(0, 0, windowWidth, windowHeight);
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -849,7 +875,7 @@ int main()
 
 
         
-        glDrawArrays(GL_TRIANGLES, 42, 18);
+        glDrawArrays(GL_TRIANGLES, 132, 18);
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
