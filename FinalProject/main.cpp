@@ -173,7 +173,7 @@ int main()
     // (red = 0.0, green = 0.0, blue = 1.0)
     //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-    Vertex vertices[6];
+    Vertex vertices[150];
 
   
     // plane reused bottom face
@@ -184,6 +184,71 @@ int main()
     vertices[3] = { -0.5f, -0.5f, 0.5f,        105,105,105,        0.0f, 1.0f, 0.0f };
     vertices[4] = { -0.5f, -0.5f, -0.5f,        105,105,105,        0.0f, 1.0f, 0.0f };
     vertices[5] = { 0.5f, -0.5f, -0.5f,            105,105,105,        0.0f, 1.0f, 0.0f };
+
+    vertices[6] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
+    vertices[7] = { -0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
+    vertices[8] = { 0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
+
+    vertices[9] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
+    vertices[10] = { 0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 0.0f, 1.0f };
+    vertices[11] = { 0.5f, -0.5f, 0.5f,			255,0,0,		0.0f, 0.0f, 1.0f };
+
+    // right face
+    vertices[12] = { 0.5f, 0.5f, 0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
+    vertices[13] = { 0.5f, -0.5f, 0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
+    vertices[14] = { 0.5f, -0.5f, -0.5f,			255,0,0,		1.0f, 0.0f, 0.0f };
+
+    vertices[15] = { 0.5f, 0.5f, 0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
+    vertices[16] = { 0.5f, 0.5f, -0.5f,		255,0,0,		1.0f, 0.0f, 0.0f };
+    vertices[17] = { 0.5f, -0.5f, -0.5f,			255,0,0,		1.0f, 0.0f, 0.0f };
+
+    // back face
+    vertices[18] = { -0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
+    vertices[19] = { -0.5f, -0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
+    vertices[20] = { 0.5f, -0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
+
+    vertices[21] = { -0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
+    vertices[22] = { 0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 0.0f, -1.0f };
+    vertices[23] = { 0.5f, -0.5f, -0.5f,			255,0,0,		0.0f, 0.0f, -1.0f };
+
+    // left face
+    vertices[24] = { -0.5f, 0.5f, 0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
+    vertices[25] = { -0.5f, -0.5f, 0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
+    vertices[26] = { -0.5f, -0.5f, -0.5f,			255,0,0,		-1.0f, 0.0f, 0.0f };
+
+    vertices[27] = { -0.5f, 0.5f, 0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
+    vertices[28] = { -0.5f, 0.5f, -0.5f,		255,0,0,		-1.0f, 0.0f, 0.0f };
+    vertices[29] = { -0.5f, -0.5f, -0.5f,			255,0,0,		-1.0f, 0.0f, 0.0f };
+
+    // top face
+    vertices[30] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
+    vertices[31] = { 0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
+    vertices[32] = { 0.5f, 0.5f, -0.5f,			255,0,0,		0.0f, 1.0f, 0.0f };
+
+    vertices[33] = { -0.5f, 0.5f, 0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
+    vertices[34] = { -0.5f, 0.5f, -0.5f,		255,0,0,		0.0f, 1.0f, 0.0f };
+    vertices[35] = { 0.5f, 0.5f, -0.5f,			255,0,0,		0.0f, 1.0f, 0.0f };
+
+    // bottom face
+    vertices[36] = { -0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
+    vertices[37] = { 0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
+    vertices[38] = { 0.5f, -0.5f, -0.5f,			255,0,0,		0.0f, -1.0f, 0.0f };
+
+    vertices[39] = { -0.5f, -0.5f, 0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
+    vertices[40] = { -0.5f, -0.5f, -0.5f,		255,0,0,		0.0f, -1.0f, 0.0f };
+    vertices[41] = { 0.5f, -0.5f, -0.5f,			255,0,0,		0.0f, -1.0f, 0.0f };
+
+
+    // plane reused bottom face
+    vertices[42] = { -0.5f, -0.5f, 0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[43] = { 0.5f, -0.5f, 0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[44] = { 0.5f, -0.5f, -0.5f,			105,105,105,		0.0f, 1.0f, 0.0f };
+
+    vertices[45] = { -0.5f, -0.5f, 0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[46] = { -0.5f, -0.5f, -0.5f,		105,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[47] = { 0.5f, -0.5f, -0.5f,			105,105,105,		0.0f, 1.0f, 0.0f };
+
+    //LAMP
 
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
@@ -299,6 +364,7 @@ int main()
             cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         }
         glm::mat4 planeTransform = glm::mat4(1.0f);
+        glm::mat4 cabinetTransform = glm::mat4(1.0f);
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
         GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
@@ -316,6 +382,13 @@ int main()
 
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(planeTransform));
         glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+
+        cabinetTransform = glm::translate(cabinetTransform, glm::vec3(3.f, -4.f, -4.f));
+        cabinetTransform = glm::scale(cabinetTransform, glm::vec3(2.f, 2.f, 2.f));
+
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
+        glDrawArrays(GL_TRIANGLES, 6, 48);
         // "Unuse" the vertex array object
         glBindVertexArray(0);
 
