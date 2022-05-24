@@ -13,15 +13,19 @@ in vec3 outNormal;
 
 in vec3 outVertexPos;
 
+//For shadow mapping
+in vec4 fragPosLCSpace;
+
 // Final color of the fragment that will be rendered on the screen
 out vec4 fragColor;
 
 // Texture unit of the texture
 uniform sampler2D tex;
 
-uniform vec3 lightPos;
+uniform sampler2D shadowMap;
 uniform vec3 cameraPos;
 
+bool hasShadow;
 struct Material{
 	vec3 ambient;
 	vec3 diffuse;
@@ -62,14 +66,27 @@ vec3 CalcDirLight(DirectionalLight light)
 	vec3 normal = normalize(outNormal);
 	float diff = max(dot(normal, lightDir), 0.0);
 	vec3 reflectDir = reflect(-lightDir, normal);
-
+	
+	float bias = max(0.1 * (1- dot(normal,lightDir)), 0.005);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 
 	vec3 ambient = light.ambient * material.ambient;
 	vec3 diffuse = light.diffuse  * (diff * material.diffuse);
 	vec3 specular = light.specular  * (spec * material.specular);
 
-	return (ambient + diffuse + specular);
+	
+	vec3 fragLightNDC = fragPosLCSpace.xyz / fragPosLCSpace.w;
+	float depthCurrent = fragLightNDC.z;
+	fragLightNDC = (fragLightNDC + 1.0f) / 2.0f;
+
+	float depthClosest = texture(shadowMap, fragLightNDC.xy).r;
+	hasShadow = depthClosest < depthCurrent-bias;
+	if (hasShadow){
+		return ambient;
+	}
+	else {
+		return(ambient + diffuse + specular);
+	}
 }
 
 vec3 CalcPointLight(PointLight light) {
@@ -78,7 +95,8 @@ vec3 CalcPointLight(PointLight light) {
 	vec3 normal = normalize(outNormal);
 	float diff = max(dot(normal, lightDir), 0.0);
 	vec3 reflectDir = reflect(-lightDir, normal);
-
+	
+	float bias = max(0.1 * (1- dot(normal,lightDir)), 0.005);
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 
 	float distance    = length(light.position - outVertexPos);
@@ -94,12 +112,15 @@ vec3 CalcPointLight(PointLight light) {
     diffuse  *= attenuation;
     specular *= attenuation;
 
-	return (ambient + diffuse + specular);
+	return(ambient + diffuse + specular);
+	
+	
 }
 
 
 void main()
 {
+	
 	vec3 dresult = CalcDirLight(light);
 	vec3 presult = CalcPointLight(plight);
 	vec3 result = dresult+presult;

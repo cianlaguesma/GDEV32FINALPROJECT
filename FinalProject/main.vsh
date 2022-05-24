@@ -21,11 +21,13 @@ out vec3 outColor;
 //Normal
 out vec3 outNormal;
 
+//shadowmap
+out vec4 fragPosLCSpace;
 //vertexpos
 
 out vec3 outVertexPos;
-
-uniform mat4 view, projection, transformationMatrix, lightPos;
+uniform mat4 lightProjection;
+uniform mat4 view, projection, transformationMatrix;
 
 void main()
 {
@@ -39,4 +41,7 @@ void main()
 	outUV = vertexUV;
 	outColor = vertexColor;
 	outNormal = mat3(transpose(inverse(transformationMatrix))) * vertexNormal;
+
+
+	fragPosLCSpace = lightProjection * vec4(outVertexPos, 1.0);
 }

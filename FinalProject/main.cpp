@@ -189,13 +189,13 @@ int main()
 
   
     // plane reused bottom face
-    vertices[0] = { -0.5f, -0.5f, 0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
-    vertices[1] = { 0.5f, -0.5f, 0.5f,        105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
-    vertices[2] = { 0.5f, -0.5f, -0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[0] = { -0.5f, -0.5f, 0.5f,       54,54,54,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[1] = { 0.5f, -0.5f, 0.5f,        54,54,54,      1.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[2] = { 0.5f, -0.5f, -0.5f,       54,54,54,      1.f,1.f,        0.0f, 1.0f, 0.0f };
 
-    vertices[3] = { -0.5f, -0.5f, 0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
-    vertices[4] = { -0.5f, -0.5f, -0.5f,      105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
-    vertices[5] = { 0.5f, -0.5f, -0.5f,       105,105,105,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[3] = { -0.5f, -0.5f, 0.5f,       54,54,54,      0.f,0.f,        0.0f, 1.0f, 0.0f };
+    vertices[4] = { -0.5f, -0.5f, -0.5f,      54,54,54,      0.f,1.f,        0.0f, 1.0f, 0.0f };
+    vertices[5] = { 0.5f, -0.5f, -0.5f,       54,54,54,      1.f,1.f,        0.0f, 1.0f, 0.0f };
 
     //BOX
 
@@ -480,6 +480,7 @@ int main()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glBindVertexArray(0);
+    GLuint depthShader = CreateShaderProgram("depth.vsh", "depth.fsh");
     
 
     // Tell OpenGL the dimensions of the region where stuff will be drawn.
@@ -662,7 +663,6 @@ int main()
         std::cout << "Error! Framebuffer not complete!" << std::endl;
     }
     
-    glViewport(0, 0, windowWidth, windowHeight);
 
     // Render loop
     while (!glfwWindowShouldClose(window))
@@ -677,7 +677,6 @@ int main()
         glBindVertexArray(vao);
 
 
-        glActiveTexture(GL_TEXTURE0);
 
         int upstate = glfwGetKey(window, GLFW_KEY_W);
         int downstate = glfwGetKey(window, GLFW_KEY_S);
@@ -695,6 +694,25 @@ int main()
         else if (leftstate == GLFW_PRESS) {
             cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         }
+
+#pragma region firstpass
+        glUseProgram(depthShader);
+        glBindVertexArray(depthVAO);
+        glViewport(0, 0, 1024, 1024);
+
+        glm::mat4 orthoProj = glm::ortho(-5.f, 5.0f, -5.0f, 5.0f, 0.1f, 11.f);
+        glm::mat4 dirLightViewMat = glm::lookAt(glm::vec3(0.0f, 5.0f, 1.f), glm::vec3(0.f), glm::vec3(0.f, 1.f, 0.f));
+        glm::mat4 lightProj = orthoProj * dirLightViewMat;
+        GLint orthoProjUnifLocation = glGetUniformLocation(depthShader, "orthoProjection");
+        glUniformMatrix4fv(orthoProjUnifLocation, 1, GL_FALSE, glm::value_ptr(orthoProj));
+        GLint dirLightViewMatUnifLocation = glGetUniformLocation(depthShader, "dirLightViewMatrix");
+        glUniformMatrix4fv(dirLightViewMatUnifLocation, 1, GL_FALSE, glm::value_ptr(dirLightViewMat));
+        GLint modelUniformLocation = glGetUniformLocation(depthShader, "model");
+
+
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
+        glClear(GL_DEPTH_BUFFER_BIT);
+
         glm::mat4 planeTransform = glm::mat4(1.0f);
         glm::mat4 cabinetTransform = glm::mat4(1.0f);
 
@@ -704,62 +722,111 @@ int main()
 
         glm::mat4 bedTransform = glm::mat4(1.0f);
         glm::mat4 belowBed = glm::mat4(1.0f);
-
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
 
 
+
+
+        
+        cabinetTransform = glm::translate(cabinetTransform, glm::vec3(3.f, -4.f, -4.f));
+        cabinetTransform = glm::scale(cabinetTransform, glm::vec3(2.f, 2.f, 2.f));
+        glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
+        glDrawArrays(GL_TRIANGLES, 6, 36);
+
+
+        midLampTransform = glm::translate(midLampTransform, glm::vec3(3.f, -2.5f, -4.f));
+        midLampTransform = glm::scale(midLampTransform, glm::vec3(0.05f, 1.f, 0.05f));
+        glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(midLampTransform));
+        glDrawArrays(GL_TRIANGLES, 6, 36);
+
+
+        botLampTransform = glm::translate(botLampTransform, glm::vec3(3.f, -3.f, -4.f));
+        botLampTransform = glm::scale(botLampTransform, glm::vec3(0.5f, 0.3f, 0.5f));
+        glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(botLampTransform));
+        glDrawArrays(GL_TRIANGLES, 6, 36);
+
+
+        bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.8f, -4.f));
+        bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 3.5f, 2.f));
+
+        glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
+        //bedtop
+        glDrawArrays(GL_TRIANGLES, 60, 36);
+        //bedbelow
+        belowBed = glm::translate(belowBed, glm::vec3(-3.f, -4.7f, -4.f));
+        belowBed = glm::scale(belowBed, glm::vec3(2.f, 3.f, 2.f));
+        glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
+        glDrawArrays(GL_TRIANGLES, 96, 36);
+
+
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glViewport(0, 0, windowWidth, windowHeight);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+#pragma endregion
+
+#pragma region secondpass
+
+        //Use Shader Program
+        glUseProgram(program);
+
+        // Use the vertex array object that we created
+        glBindVertexArray(vao);
+
         GLint texUniformLocation = glGetUniformLocation(program, "tex");
         glUniform1i(texUniformLocation, 0);
+
         GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
 
         GLint viewUniformLocation = glGetUniformLocation(program, "view");
         glUniformMatrix4fv(viewUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
 
 
+        GLint shadowMapTexUnifLocation = glGetUniformLocation(framebufferTex, "shadowMap");
+        glUniform1i(shadowMapTexUnifLocation, 1);
+
         GLint projectionUniformLocation = glGetUniformLocation(program, "projection");
         glUniformMatrix4fv(projectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, framebufferTex);
+
 
         planeTransform = glm::rotate(planeTransform, glm::radians(0.0f), glm::vec3(0.f, 1.0f, 0.0f));
         planeTransform = glm::scale(planeTransform, glm::vec3(10.0f, 10.0f, 10.0f));
 
-
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(planeTransform));
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
         glBindTexture(GL_TEXTURE_2D, tex1);
-        cabinetTransform = glm::translate(cabinetTransform, glm::vec3(3.f, -4.f, -4.f));
-        cabinetTransform = glm::scale(cabinetTransform, glm::vec3(2.f, 2.f, 2.f));
+
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
         glDrawArrays(GL_TRIANGLES, 6, 36);
 
 
         glBindTexture(GL_TEXTURE_2D, tex2);
-        midLampTransform = glm::translate(midLampTransform, glm::vec3(3.f, -2.5f, -4.f));
-        midLampTransform = glm::scale(midLampTransform, glm::vec3(0.05f, 1.f, 0.05f));
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(midLampTransform));
         glDrawArrays(GL_TRIANGLES, 6, 36);
 
         glBindTexture(GL_TEXTURE_2D, tex2);
 
-        botLampTransform = glm::translate(botLampTransform, glm::vec3(3.f, -3.f, -4.f));
-        botLampTransform = glm::scale(botLampTransform, glm::vec3(0.5f, 0.3f, 0.5f));
-        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(botLampTransform)); 
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(botLampTransform));
         glDrawArrays(GL_TRIANGLES, 6, 36);
 
 
         glBindTexture(GL_TEXTURE_2D, tex3);
-        bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.8f, -4.f));
-        bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 3.5f, 2.f));
 
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
         //bedtop
         glDrawArrays(GL_TRIANGLES, 60, 36);
         glBindTexture(GL_TEXTURE_2D, tex2);
         //bedbelow
-        belowBed = glm::translate(belowBed, glm::vec3(-3.f, -4.7f, -4.f));
-        belowBed = glm::scale(belowBed, glm::vec3(2.f, 3.f, 2.f));
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
         glDrawArrays(GL_TRIANGLES, 96, 36);
+
+
+#pragma endregion
 
         //LIGHTS
         float constant = 1.0f;
@@ -773,12 +840,12 @@ int main()
         Light light = {  };
         //glm::vec3 lightColor;
 
-        light.lightPos = glm::vec3(-3.5f, 3.5f, 9.f);
-        light.lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-        light.diffuseColor = light.lightColor * glm::vec3(1.f);
-        light.ambientColor = light.diffuseColor * glm::vec3(0.3f);
+        light.lightPos = glm::vec3(0.f, -1.f, 0.f);
+        light.lightColor = glm::vec3(0.5f, 1.0f, 1.0f);
+        light.diffuseColor = light.lightColor * glm::vec3(0.5f);
+        light.ambientColor = light.diffuseColor * glm::vec3(0.5f);
         light.specular = glm::vec3(1.f, 1.f, 1.f);
-        light.lightDirection = glm::vec3(1.2f, 4.0f, -6.0f);
+        light.lightDirection = glm::vec3(0.f,-1.0f, 0.75f);
         light.materialAmbient = glm::vec3(1.f, 0.5f, 0.31f);
 
         light.materialDiffuse = glm::vec3(1.f, 0.5f, 0.31f);
