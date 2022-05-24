@@ -8,6 +8,8 @@
 #include <iostream>
 #include <string>
 
+#include <vector>
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -536,6 +538,8 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glBindVertexArray(0);
     GLuint depthShader = CreateShaderProgram("depth.vsh", "depth.fsh");
+
+    
     
 
     // Tell OpenGL the dimensions of the region where stuff will be drawn.
@@ -836,6 +840,38 @@ int main()
 
 
 #pragma endregion
+
+    GLuint skyboxTex;
+    glGenTextures(1, &skyboxTex);
+    stbi_set_flip_vertically_on_load(true);
+
+    std::vector<std::string> cubeMapFaces { 
+            "rainbow_right.jpg",
+            "rainbox_left.jpg",
+            "rainbow_up.jpg",
+            "rainbow_down.jpg",
+            "rainbow_front.jpg",
+            "rainbow_back.jpg"
+    };
+    for (int i = 0; i < cubeMapFaces.size(); i++) {
+        imageData = stbi_load(cubeMapFaces[i].c_str(), &imageWidth, &imageHeight, &numChannels, 0);
+        if (imageData != nullptr) {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+            stbi_image_free(imageData);
+        }
+        else
+        {
+            std::cerr << "Failed to load image" << std::endl;
+        }
+    }
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+
     // Framebuffer
     GLuint framebuffer;
     glGenFramebuffers(1, &framebuffer);
