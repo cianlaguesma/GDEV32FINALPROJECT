@@ -273,6 +273,64 @@ int main()
 #pragma endregion
 
     //Top Reuse the box
+    // BED
+    // LOWER FRAME
+    vertices[60] = { -0.75f, 0.0f, 1.0f,		231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[61] = { -0.75f, 0.0f, 0.f,		231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[62] = { 0.75f, 0.0f, 0.f,			231,105,105,		0.0f, 1.0f, 0.0f };
+
+    vertices[63] = { -0.75f, 0.0f, 1.0f,		231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[64] = { 0.75f, 0.0f, 0.f,			231,105,105,		0.0f, 1.0f, 0.0f };
+    vertices[65] = { 0.75f, 0.0f, 1.0f,			231,105,105,		0.0f, 1.0f, 0.0f };
+
+    // UPPER FRAME
+    vertices[66] = { -0.75f, 0.15f, 1.0f,		231,235,105,		0.0f, 1.0f, 0.0f };
+    vertices[67] = { -0.75f, 0.15f, 0.f,		231,235,105,		0.0f, 1.0f, 0.0f };
+    vertices[68] = { 0.75f, 0.15f, 0.f,			231,235,105,		0.0f, 1.0f, 0.0f };
+
+    vertices[69] = { -0.75f, 0.15f, 1.0f,		231,235,105,		0.0f, 1.0f, 0.0f };
+    vertices[70] = { 0.75f, 0.15f, 0.f,			231,235,105,		0.0f, 1.0f, 0.0f };
+    vertices[71] = { 0.75f, 0.15f, 1.0f,			231,235,105,		0.0f, 1.0f, 0.0f };
+
+    // CONNECTOR LEFT
+    vertices[72] = { -0.75f, 0.0f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[73] = { -0.75f, 0.0f, 0.f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[74] = { -0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    vertices[75] = { -0.75f, 0.15f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[76] = { -0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[77] = { -0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    // CONNECTOR RIGHT
+    vertices[78] = { 0.75f, 0.0f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[79] = { 0.75f, 0.0f, 0.f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[80] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    vertices[81] = { 0.75f, 0.15f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[82] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[83] = { 0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+
+    // CONNECTOR BOTTOM
+    vertices[84] = { -0.75f, 0.0f, 0.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[85] = { -0.75f, 0.15f, 0.f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[86] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    vertices[87] = { 0.75f, 0.f, 0.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[88] = { 0.75f, 0.15f, 0.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[89] = { -0.75f, 0.f, 0.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    
+    // CONNECTOR TOP
+    vertices[90] = { -0.75f, 0.0f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[91] = { -0.75f, 0.15f, 1.f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[92] = { 0.75f, 0.15f, 1.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+    vertices[93] = { 0.75f, 0.f, 1.0f,		231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[94] = { 0.75f, 0.15f, 1.f,			231,235,155,		0.0f, 1.0f, 0.0f };
+    vertices[95] = { -0.75f, 0.f, 1.0f,			231,235,155,		0.0f, 1.0f, 0.0f };
+
+
     // Create a vertex buffer object (VBO), and upload our vertices data to the VBO
     GLuint vbo;
     glGenBuffers(1, &vbo);
@@ -397,6 +455,8 @@ int main()
         glm::mat4 botLampTransform = glm::mat4(1.0f);
         glm::vec3 color;
 
+        glm::mat4 bedTransform = glm::mat4(1.0f);
+
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
         GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
@@ -438,6 +498,19 @@ int main()
 
         glDrawArrays(GL_TRIANGLES, 6, 36);
 
+
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(cabinetTransform));
+
+        glDrawArrays(GL_TRIANGLES, 6, 48);
+       
+
+
+        bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.f, -4.f));
+        bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 2.f, 2.f));
+
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
+
+        glDrawArrays(GL_TRIANGLES, 60, 36);
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
