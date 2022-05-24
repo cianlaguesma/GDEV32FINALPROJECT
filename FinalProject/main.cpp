@@ -63,8 +63,8 @@ void FramebufferSizeChangedCallback(GLFWwindow* window, int width, int height)
 }
 
 //camera
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 2.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -2.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 2.0f, 8.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, -1.0f, -2.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 float cameraSpeed = 0.005f;
 
@@ -698,7 +698,6 @@ int main()
 #pragma region FIFTHTEX
 
 
-    //THIS IS FOR THE FOURTH TEXTURE
     GLuint tex4;
     glGenTextures(1, &tex4);
     stbi_set_flip_vertically_on_load(true);
@@ -735,7 +734,6 @@ int main()
 #pragma region SIXTHTEX
 
 
-    //THIS IS FOR THE FOURTH TEXTURE
     GLuint tex5;
     glGenTextures(1, &tex5);
     stbi_set_flip_vertically_on_load(true);
@@ -745,6 +743,41 @@ int main()
     if (imageData != nullptr)
     {
         glBindTexture(GL_TEXTURE_2D, tex5);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
+
+
+    stbi_set_flip_vertically_on_load(true);
+
+
+#pragma endregion
+#pragma region SEVENTHTEX
+
+
+    GLuint tex6;
+    glGenTextures(1, &tex6);
+    stbi_set_flip_vertically_on_load(true);
+
+    imageData = stbi_load("tiles.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
+    if (imageData != nullptr)
+    {
+        glBindTexture(GL_TEXTURE_2D, tex6);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -794,8 +827,10 @@ int main()
     
 
 
-    glm::vec3 movingFacePosition = glm::vec3(-3.f, -1.f, -4.f);
-    float movingFaceSpeed = 0.05f;
+    glm::vec3 movingFacePosition = glm::vec3(1.5f, -1.f, -2.f);
+    float movingFaceSpeed = 0.005f;
+    glm::vec3 x = glm::vec3(1.0f,0,0);
+    glm::vec3 z = glm::vec3(0,0,-1.0f);
     // Render loop
     while (!glfwWindowShouldClose(window))
     {
@@ -833,16 +868,16 @@ int main()
         int leftArrowState = glfwGetKey(window, GLFW_KEY_LEFT);
 
         if (upArrowState == GLFW_PRESS) {
-            movingFacePosition += cameraFront * movingFaceSpeed;
+            movingFacePosition += z * movingFaceSpeed;
         }
         else if (downArrowState == GLFW_PRESS) {
-            movingFacePosition -= cameraFront * movingFaceSpeed;
+            movingFacePosition -= z * movingFaceSpeed;
         }
         if (rightArrowState == GLFW_PRESS) {
-            movingFacePosition += glm::normalize(glm::cross(cameraFront, cameraUp)) * movingFaceSpeed;
+            movingFacePosition += x * movingFaceSpeed;
         }
         else if (leftArrowState == GLFW_PRESS) {
-            movingFacePosition -= glm::normalize(glm::cross(cameraFront, cameraUp)) * movingFaceSpeed;
+            movingFacePosition -= x * movingFaceSpeed;
         }
 
 #pragma region firstpass
@@ -901,15 +936,15 @@ int main()
         glDrawArrays(GL_TRIANGLES, 6, 36);
 
 
-        bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.8f, -4.f));
-        bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 3.5f, 2.f));
+        bedTransform = glm::translate(bedTransform, glm::vec3(-2.4f, -4.6f, -4.f));
+        bedTransform = glm::scale(bedTransform, glm::vec3(3.f, 3.7f, 3.f));
 
         glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
         //bedtop
         glDrawArrays(GL_TRIANGLES, 60, 36);
         //bedbelow
-        belowBed = glm::translate(belowBed, glm::vec3(-3.f, -4.7f, -4.f));
-        belowBed = glm::scale(belowBed, glm::vec3(2.f, 3.f, 2.f));
+        belowBed = glm::translate(belowBed, glm::vec3(-2.4f, -4.5f, -4.f));
+        belowBed = glm::scale(belowBed, glm::vec3(3.f, 3.2f, 3.f));
         glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(belowBed));
         glDrawArrays(GL_TRIANGLES, 96, 36);
 
@@ -936,6 +971,9 @@ int main()
         GLint texUniformLocation = glGetUniformLocation(program, "tex");
         glUniform1i(texUniformLocation, 0);
 
+        GLint bumpLoc = glGetUniformLocation(program, "bump");
+        glUniform1i(bumpLoc, 1);
+
         GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
 
         GLint viewUniformLocation = glGetUniformLocation(program, "view");
@@ -955,8 +993,12 @@ int main()
         planeTransform = glm::rotate(planeTransform, glm::radians(0.0f), glm::vec3(0.f, 1.0f, 0.0f));
         planeTransform = glm::scale(planeTransform, glm::vec3(10.0f, 10.0f, 10.0f));
 
+        glActiveTexture(GL_TEXTURE0 + 1);
+        glBindTexture(GL_TEXTURE_2D, tex6);
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(planeTransform));
+
         glDrawArrays(GL_TRIANGLES, 0, 6);
+        glActiveTexture(GL_TEXTURE0);
 
         glBindTexture(GL_TEXTURE_2D, tex1);
 

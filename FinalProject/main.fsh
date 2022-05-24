@@ -22,6 +22,8 @@ out vec4 fragColor;
 // Texture unit of the texture
 uniform sampler2D tex;
 
+uniform sampler2D bump;
+
 uniform sampler2D shadowMap;
 uniform vec3 cameraPos;
 
@@ -125,6 +127,6 @@ void main()
 	vec3 presult = CalcPointLight(plight);
 	vec3 result = dresult+presult;
 	vec3 newColor = outColor;
-	fragColor = texture(tex, outUV) *(vec4(result,1.f));
+	fragColor = texture(tex, outUV) *(vec4(result,1.f)) * texture(bump,outUV);
 
 }
