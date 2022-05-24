@@ -872,7 +872,7 @@ int main()
 
         glm::mat4 topLampTransform = glm::mat4(1.0f);
         topLampTransform = glm::scale(topLampTransform, glm::vec3(0.8f, 0.8f, 0.8f));
-        topLampTransform = glm::translate(topLampTransform, light2.lightPos);
+        topLampTransform = glm::translate(topLampTransform, glm::vec3(3.75f, -2.5f, -5.f));
         glUniformMatrix4fv(matLightUniformLocation, 1, GL_FALSE, glm::value_ptr(topLampTransform));
 
         glDrawArrays(GL_TRIANGLES, 132, 18);
