@@ -12,6 +12,8 @@ out vec4 fragColor;
 // Texture unit of the texture
 uniform sampler2D tex;
 
+uniform vec3 objectColor;
+
 void main()
 {
     vec3 newColor = outColor;
