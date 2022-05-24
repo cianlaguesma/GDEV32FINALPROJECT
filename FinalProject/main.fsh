@@ -6,18 +6,104 @@ in vec2 outUV;
 // Color of the fragment received from the vertex shader (interpolated by the rasterization stage)
 in vec3 outColor;
 
+//Normal
+in vec3 outNormal;
+
+//pos
+
+in vec3 outVertexPos;
+
 // Final color of the fragment that will be rendered on the screen
 out vec4 fragColor;
 
 // Texture unit of the texture
 uniform sampler2D tex;
 
-uniform vec3 objectColor;
+uniform vec3 lightPos;
+uniform vec3 cameraPos;
+
+struct Material{
+	sampler2D diffuse;
+	sampler2D specular;
+	float shininess;
+};
+
+struct DirectionalLight {
+	vec3 direction;
+
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
+
+};
+
+struct PointLight {
+	vec3 position;
+    
+    float constant;
+    float linear;
+    float quadratic;  
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
+uniform DirectionalLight light;
+uniform PointLight plight;
+
+uniform Material material;
+
+vec3 CalcDirLight(DirectionalLight light)
+{
+	vec3 lightDir = normalize(-light.direction);
+	vec3 viewDir = normalize(cameraPos - outVertexPos);
+	vec3 normal = normalize(outNormal);
+	float diff = max(dot(normal, lightDir), 0.0);
+	vec3 reflectDir = reflect(-lightDir, normal);
+
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+
+	vec3 ambient = light.ambient * vec3(texture(material.diffuse,outUV));
+	vec3 diffuse = light.diffuse  * (diff * vec3(texture(material.diffuse,outUV)));
+	vec3 specular = light.specular  * (spec * vec3(texture(material.specular,outUV)));
+
+	return (ambient + diffuse + specular);
+}
+
+vec3 CalcPointLight(PointLight light) {
+	vec3 lightDir = normalize(light.position - outVertexPos);
+	vec3 viewDir = normalize(cameraPos - outVertexPos);
+	vec3 normal = normalize(outNormal);
+	float diff = max(dot(normal, lightDir), 0.0);
+	vec3 reflectDir = reflect(-lightDir, normal);
+
+	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+
+	float distance    = length(light.position - outVertexPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + 
+  			     light.quadratic * (distance * distance)); 
+
+	
+	vec3 ambient = light.ambient * vec3(texture(material.diffuse,outUV));
+	vec3 diffuse = light.diffuse  * (diff * vec3(texture(material.diffuse,outUV)));
+	vec3 specular = light.specular  * (spec * vec3(texture(material.specular,outUV)));
+
+	ambient  *= attenuation;
+    diffuse  *= attenuation;
+    specular *= attenuation;
+
+	return (ambient + diffuse + specular);
+}
+
 
 void main()
 {
-    vec3 newColor = outColor;
-    vec3 color = glm::vec3(1.f,1.f,1.f);
-    //fragColor = vec4(newColor, 1.0);
-    fragColor = texture(tex, outUV) * vec4(color,1.0);
+	vec3 dresult = CalcDirLight(light);
+	vec3 presult = CalcPointLight(plight);
+	vec3 result = dresult+presult+s1result;
+
+	vec3 newColor = outColor;
+	fragColor = texture(tex, outUV) *(vec4(result,1.f));
+
 }

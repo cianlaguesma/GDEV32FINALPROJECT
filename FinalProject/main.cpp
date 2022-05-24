@@ -115,7 +115,18 @@ struct Vertex
     GLfloat u, v;
     GLfloat nx, ny, nz;
 };
-
+struct Light
+{
+    glm::vec3 lightPos;
+    glm::vec3 lightColor;
+    glm::vec3 diffuseColor;
+    glm::vec3 ambientColor;
+    glm::vec3 specular;
+    glm::vec3 lightDirection;
+    glm::vec3 materialAmbient;
+    glm::vec3 materialDiffuse;
+    glm::vec3 materialSpecular;
+};
 /**
  * @brief Main function
  * @return An integer indicating whether the program ended successfully or not.
@@ -624,6 +635,110 @@ int main()
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(bedTransform));
 
         glDrawArrays(GL_TRIANGLES, 60, 36);
+
+        //LIGHTS
+        float constant = 1.0f;
+        float linear = 0.14f;
+        float quadratic = 0.07f;
+        float materialShininess = 32.f;
+#pragma region LIGHT_1
+        GLint cameraUniformLocation = glGetUniformLocation(program, "cameraPos");
+        glUniform3fv(cameraUniformLocation, 1, glm::value_ptr(cameraPos));
+
+        //light
+        // directionalLight
+        Light light = {  };
+        //glm::vec3 lightColor;
+
+        light.lightPos = glm::vec3(-3.5f, 3.5f, 9.f);
+        light.lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+        light.diffuseColor = light.lightColor * glm::vec3(0.2f);
+        light.ambientColor = light.diffuseColor * glm::vec3(0.3f);
+        light.specular = glm::vec3(1.f, 1.f, 1.f);
+        light.lightDirection = glm::vec3(1.2f, 4.0f, -6.0f);
+        light.materialAmbient = glm::vec3(1.f, 0.5f, 0.31f);
+        light.materialDiffuse = glm::vec3(1.f, 0.5f, 0.31f);
+        light.materialSpecular = glm::vec3(0.5f, 0.5f, 0.5f);
+        GLint lightUniformLocation = glGetUniformLocation(program, "light.position");
+        //switch to lightPos ang glm::valueptr if not spotlight
+        //switch to cameraPos if spotlight
+        //glUniform3fv(lightUniformLocation, 1, glm::value_ptr(cameraPos));
+
+        glUniform3fv(lightUniformLocation, 1, glm::value_ptr(light.lightPos));
+        GLint lightUniformDirection = glGetUniformLocation(program, "light.direction");
+
+        //switch to lightDirection ang glm::valueptr if not spotlight
+        //switch to cameraFront if spotlight
+        //glUniform3fv(lightUniformDirection, 1, glm::value_ptr(cameraFront));
+
+        glUniform3fv(lightUniformDirection, 1, glm::value_ptr(light.lightDirection));
+        GLint lightUniformAmbient = glGetUniformLocation(program, "light.ambient");
+        glUniform3fv(lightUniformAmbient, 1, glm::value_ptr(light.ambientColor));
+        GLint lightUniformDiffuse = glGetUniformLocation(program, "light.diffuse");
+        glUniform3fv(lightUniformDiffuse, 1, glm::value_ptr(light.diffuseColor));
+        GLint lightUniformSpecular = glGetUniformLocation(program, "light.specular");
+        glUniform3fv(lightUniformSpecular, 1, glm::value_ptr(light.specular));
+
+
+        GLint materialUniformAmbient = glGetUniformLocation(program, "material.ambient");
+        glUniform3fv(materialUniformAmbient, 1, glm::value_ptr(light.materialAmbient));
+        GLint materialUniformDiffuse = glGetUniformLocation(program, "material.diffuse");
+        glUniform3fv(materialUniformDiffuse, 1, glm::value_ptr(light.materialDiffuse));
+        GLint materialUniformSpecular = glGetUniformLocation(program, "material.specular");
+        glUniform3fv(materialUniformSpecular, 1, glm::value_ptr(light.materialSpecular));
+        GLint materialUniformShininess = glGetUniformLocation(program, "material.shininess");
+        glUniform1f(materialUniformShininess, materialShininess);
+
+#pragma endregion
+
+#pragma region LIGHT_2
+        Light light2 = {  };
+        //Point
+        // 2nd light
+        light2.lightPos = glm::vec3(2.f, 3.5f, 6.f);
+        light2.lightColor.x = sin(glfwGetTime() * 2.0f);
+        light2.lightColor.y = sin(glfwGetTime() * 0.7f);
+        light2.lightColor.z = sin(glfwGetTime() * 1.3f);
+        light2.diffuseColor = light2.lightColor * glm::vec3(0.5f);
+        light2.ambientColor = light2.diffuseColor * glm::vec3(0.2f);
+        light2.specular = glm::vec3(1.f, 1.f, 1.f);
+        light2.lightDirection = glm::vec3(1.2f, 0.0f, 3.0f);
+        light2.materialAmbient = glm::vec3(1.f, 0.5f, 0.31f);
+        light2.materialDiffuse = glm::vec3(1.f, 0.5f, 0.31f);
+        light2.materialSpecular = glm::vec3(0.5f, 0.5f, 0.5f);
+
+
+
+        GLint light2UniformLocation = glGetUniformLocation(program, "plight.position");
+        //switch to lightPos ang glm::valueptr if not spotlight
+        //switch to cameraPos if spotlight
+        //glUniform3fv(lightUniformLocation, 1, glm::value_ptr(cameraPos));
+
+        glUniform3fv(light2UniformLocation, 1, glm::value_ptr(light2.lightPos));
+        GLint light2UniformDirection = glGetUniformLocation(program, "plight.direction");
+
+        //switch to lightDirection ang glm::valueptr if not spotlight
+        //switch to cameraFront if spotlight
+        //glUniform3fv(lightUniformDirection, 1, glm::value_ptr(cameraFront));
+
+        glUniform3fv(light2UniformDirection, 1, glm::value_ptr(light2.lightDirection));
+        GLint light2UniformAmbient = glGetUniformLocation(program, "plight.ambient");
+        glUniform3fv(light2UniformAmbient, 1, glm::value_ptr(light2.ambientColor));
+        GLint light2UniformDiffuse = glGetUniformLocation(program, "plight.diffuse");
+        glUniform3fv(light2UniformDiffuse, 1, glm::value_ptr(light2.diffuseColor));
+        GLint light2UniformSpecular = glGetUniformLocation(program, "plight.specular");
+        glUniform3fv(light2UniformSpecular, 1, glm::value_ptr(light2.specular));
+
+
+        //Point light
+        GLint pointConstantUniform = glGetUniformLocation(program, "plight.constant");
+        glUniform1f(pointConstantUniform, constant);
+        GLint pointLinearUniform = glGetUniformLocation(program, "plight.linear");
+        glUniform1f(pointLinearUniform, linear);
+        GLint pointQuadraticUniform = glGetUniformLocation(program, "plight.quadratic");
+        glUniform1f(pointQuadraticUniform, quadratic);
+
+#pragma endregion
 
         // "Unuse" the vertex array object
         glBindVertexArray(0);
