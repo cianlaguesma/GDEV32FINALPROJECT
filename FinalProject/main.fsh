@@ -17,6 +17,7 @@ uniform vec3 objectColor;
 void main()
 {
     vec3 newColor = outColor;
-    fragColor = vec4(newColor, 1.0);
-    //fragColor = texture(tex, outUV);
+    vec3 color = glm::vec3(1.f,1.f,1.f);
+    //fragColor = vec4(newColor, 1.0);
+    fragColor = texture(tex, outUV) * vec4(color,1.0);
 }
