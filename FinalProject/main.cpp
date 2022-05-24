@@ -687,8 +687,6 @@ int main()
 
         glDrawArrays(GL_TRIANGLES, 6, 48);
        
-
-
         bedTransform = glm::translate(bedTransform, glm::vec3(-3.f, -4.f, -4.f));
         bedTransform = glm::scale(bedTransform, glm::vec3(2.f, 2.f, 2.f));
 
@@ -702,8 +700,6 @@ int main()
         float quadratic = 0.07f;
         float materialShininess = 32.f;
 #pragma region LIGHT_1
-        GLint cameraUniformLocation = glGetUniformLocation(program, "cameraPos");
-        glUniform3fv(cameraUniformLocation, 1, glm::value_ptr(cameraPos));
 
         //light
         // directionalLight
@@ -712,24 +708,18 @@ int main()
 
         light.lightPos = glm::vec3(-3.5f, 3.5f, 9.f);
         light.lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-        light.diffuseColor = light.lightColor * glm::vec3(0.2f);
+        light.diffuseColor = light.lightColor * glm::vec3(0.5f);
         light.ambientColor = light.diffuseColor * glm::vec3(0.3f);
         light.specular = glm::vec3(1.f, 1.f, 1.f);
         light.lightDirection = glm::vec3(1.2f, 4.0f, -6.0f);
         light.materialAmbient = glm::vec3(1.f, 0.5f, 0.31f);
+
         light.materialDiffuse = glm::vec3(1.f, 0.5f, 0.31f);
         light.materialSpecular = glm::vec3(0.5f, 0.5f, 0.5f);
         GLint lightUniformLocation = glGetUniformLocation(program, "light.position");
-        //switch to lightPos ang glm::valueptr if not spotlight
-        //switch to cameraPos if spotlight
-        //glUniform3fv(lightUniformLocation, 1, glm::value_ptr(cameraPos));
-
         glUniform3fv(lightUniformLocation, 1, glm::value_ptr(light.lightPos));
         GLint lightUniformDirection = glGetUniformLocation(program, "light.direction");
 
-        //switch to lightDirection ang glm::valueptr if not spotlight
-        //switch to cameraFront if spotlight
-        //glUniform3fv(lightUniformDirection, 1, glm::value_ptr(cameraFront));
 
         glUniform3fv(lightUniformDirection, 1, glm::value_ptr(light.lightDirection));
         GLint lightUniformAmbient = glGetUniformLocation(program, "light.ambient");
@@ -755,7 +745,7 @@ int main()
         Light light2 = {  };
         //Point
         // 2nd light
-        light2.lightPos = glm::vec3(2.f, 3.5f, 6.f);
+        light2.lightPos = glm::vec3(3.f, -2.f, -4.f);
         light2.lightColor.x = sin(glfwGetTime() * 2.0f);
         light2.lightColor.y = sin(glfwGetTime() * 0.7f);
         light2.lightColor.z = sin(glfwGetTime() * 1.3f);
@@ -770,16 +760,9 @@ int main()
 
 
         GLint light2UniformLocation = glGetUniformLocation(program, "plight.position");
-        //switch to lightPos ang glm::valueptr if not spotlight
-        //switch to cameraPos if spotlight
-        //glUniform3fv(lightUniformLocation, 1, glm::value_ptr(cameraPos));
 
         glUniform3fv(light2UniformLocation, 1, glm::value_ptr(light2.lightPos));
         GLint light2UniformDirection = glGetUniformLocation(program, "plight.direction");
-
-        //switch to lightDirection ang glm::valueptr if not spotlight
-        //switch to cameraFront if spotlight
-        //glUniform3fv(lightUniformDirection, 1, glm::value_ptr(cameraFront));
 
         glUniform3fv(light2UniformDirection, 1, glm::value_ptr(light2.lightDirection));
         GLint light2UniformAmbient = glGetUniformLocation(program, "plight.ambient");
@@ -790,7 +773,12 @@ int main()
         glUniform3fv(light2UniformSpecular, 1, glm::value_ptr(light2.specular));
 
 
-        //Point light
+
+        glUniform3fv(materialUniformAmbient, 1, glm::value_ptr(light2.materialAmbient));
+        glUniform3fv(materialUniformDiffuse, 1, glm::value_ptr(light2.materialDiffuse));
+        glUniform3fv(materialUniformSpecular, 1, glm::value_ptr(light2.materialSpecular));
+        glUniform1f(materialUniformShininess, materialShininess);
+
         GLint pointConstantUniform = glGetUniformLocation(program, "plight.constant");
         glUniform1f(pointConstantUniform, constant);
         GLint pointLinearUniform = glGetUniformLocation(program, "plight.linear");

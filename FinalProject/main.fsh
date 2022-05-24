@@ -23,8 +23,9 @@ uniform vec3 lightPos;
 uniform vec3 cameraPos;
 
 struct Material{
-	sampler2D diffuse;
-	sampler2D specular;
+	vec3 ambient;
+	vec3 diffuse;
+	vec3 specular;
 	float shininess;
 };
 
@@ -64,9 +65,9 @@ vec3 CalcDirLight(DirectionalLight light)
 
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 
-	vec3 ambient = light.ambient * vec3(texture(material.diffuse,outUV));
-	vec3 diffuse = light.diffuse  * (diff * vec3(texture(material.diffuse,outUV)));
-	vec3 specular = light.specular  * (spec * vec3(texture(material.specular,outUV)));
+	vec3 ambient = light.ambient * material.ambient;
+	vec3 diffuse = light.diffuse  * (diff * material.diffuse);
+	vec3 specular = light.specular  * (spec * material.specular);
 
 	return (ambient + diffuse + specular);
 }
@@ -85,9 +86,9 @@ vec3 CalcPointLight(PointLight light) {
   			     light.quadratic * (distance * distance)); 
 
 	
-	vec3 ambient = light.ambient * vec3(texture(material.diffuse,outUV));
-	vec3 diffuse = light.diffuse  * (diff * vec3(texture(material.diffuse,outUV)));
-	vec3 specular = light.specular  * (spec * vec3(texture(material.specular,outUV)));
+	vec3 ambient = light.ambient * material.ambient;
+	vec3 diffuse = light.diffuse  * (diff * material.diffuse);
+	vec3 specular = light.specular  * (spec * material.specular);
 
 	ambient  *= attenuation;
     diffuse  *= attenuation;
@@ -101,8 +102,7 @@ void main()
 {
 	vec3 dresult = CalcDirLight(light);
 	vec3 presult = CalcPointLight(plight);
-	vec3 result = dresult+presult+s1result;
-
+	vec3 result = dresult+presult;
 	vec3 newColor = outColor;
 	fragColor = texture(tex, outUV) *(vec4(result,1.f));
 
