@@ -11,8 +11,8 @@ uniform vec3 cameraPos;
 
 void main()
 {
-    vec3 I = normalize(outVertexPos-cameraPos);
-    vec3 R = reflect(I, normalize(outVertexNormal));
+    vec3 viewDirVec = normalize(outVertexPos-cameraPos);
+    vec3 refVec = reflect(viewDirVec, normalize(outVertexNormal));
     FragColor = texture(skybox, texCoords);
 
 }
