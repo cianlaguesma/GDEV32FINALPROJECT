@@ -157,7 +157,7 @@ int main()
     // Tell GLFW to create a window
     int windowWidth = 800;
     int windowHeight = 600;
-    GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "OpenGL Review", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Final Project - GDEV32", nullptr, nullptr);
     if (window == nullptr)
     {
         std::cerr << "Failed to create GLFW window!" << std::endl;
