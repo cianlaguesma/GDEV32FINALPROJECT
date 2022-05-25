@@ -600,6 +600,30 @@ int main()
 
     GLuint skyboxShader = CreateShaderProgram("skybox.vsh", "skybox.fsh");
 
+    GLuint cubeVAO;
+    glGenVertexArrays(1, &cubeVAO);
+    glBindVertexArray(cubeVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    // Vertex attribute 0 - Position
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, x));
+
+    // Vertex attribute 1 - Color
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)(offsetof(Vertex, r)));
+
+    // Vertex attribute 2 - UV coordinate
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, u)));
+
+    //Vertex Attribute 3 - Normal
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(offsetof(Vertex, nx)));
+
+    glEnableVertexAttribArray(0);
+
+    GLuint cubeShader = CreateShaderProgram("cube.vsh", "cube.fsh");
+
     
 
     // Tell OpenGL the dimensions of the region where stuff will be drawn.
@@ -1025,14 +1049,6 @@ int main()
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
 
-
-
-
-
-
-
-  
-
 #pragma region firstpass
         glUseProgram(depthShader);
         glBindVertexArray(depthVAO);
@@ -1101,7 +1117,6 @@ int main()
         xRot += 0.5f;
         movingFace = glm::translate(movingFace, movingFacePosition);
         movingFace = glm::scale(movingFace, glm::vec3(1.f, 1.f, 1.f));
-
         movingFace = glm::rotate(movingFace, glm::radians(xRot), glm::vec3(0.f, 1.0f, 0.f));
 
         glUniformMatrix4fv(modelUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
@@ -1127,9 +1142,6 @@ int main()
 #pragma endregion
 
 #pragma region secondpass
-
-
-
         //Use Shader Program
         glUseProgram(program);
 
@@ -1144,12 +1156,11 @@ int main()
 
         GLint matUniformLocation = glGetUniformLocation(program, "transformationMatrix");
 
-        GLint viewUniformLocation = glGetUniformLocation(program, "view");
-        glUniformMatrix4fv(viewUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
-
-
         GLint shadowMapTexUnifLocation = glGetUniformLocation(framebufferTex, "shadowMap");
         glUniform1i(shadowMapTexUnifLocation, 1);
+
+        GLint viewUniformLocation = glGetUniformLocation(program, "view");
+        glUniformMatrix4fv(viewUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
 
         GLint projectionUniformLocation = glGetUniformLocation(program, "projection");
         glUniformMatrix4fv(projectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
@@ -1199,34 +1210,21 @@ int main()
         glDrawArrays(GL_TRIANGLES, 96, 36);
 
 
-        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
-
-        glBindTexture(GL_TEXTURE_2D, tex4);
-      
-        glDrawArrays(GL_TRIANGLES, 150, 6);
-
-        glBindTexture(GL_TEXTURE_2D, tex5);
-        glDrawArrays(GL_TRIANGLES, 156, 6);
-        glBindTexture(GL_TEXTURE_2D, tex4);
-        glDrawArrays(GL_TRIANGLES, 162, 6);
-        glBindTexture(GL_TEXTURE_2D, tex5);
-        glDrawArrays(GL_TRIANGLES, 168, 6);
-        glBindTexture(GL_TEXTURE_2D, tex4);
-        glDrawArrays(GL_TRIANGLES, 174, 6);
-        glBindTexture(GL_TEXTURE_2D, tex5);
-        glDrawArrays(GL_TRIANGLES, 180, 6);
-
         glBindTexture(GL_TEXTURE_2D, tex7);
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(sims));
 
         glDrawArrays(GL_TRIANGLES, 132, 18);
         glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(simsBelow));
         glDrawArrays(GL_TRIANGLES, 132, 18);
+
+       
+
         //LIGHTS
         float constant = 1.0f;
         float linear = 0.14f;
         float quadratic = 0.07f;
         float materialShininess = 32.f;
+#pragma endregion
 #pragma region LIGHT_1
 
         //light
@@ -1354,15 +1352,36 @@ int main()
 
         glDrawArrays(GL_TRIANGLES, 132, 18);
 
+#pragma region reflection
+        //REFLECTION
+        glUseProgram(cubeShader);
+        GLint cameraUniformLocation = glGetUniformLocation(cubeShader, "cameraPos");
+        glUniform3fv(cameraUniformLocation, 1, glm::value_ptr(cameraPos));
+        GLint modelRefLocation = glGetUniformLocation(cubeShader, "model");
+
+        GLint cubeViewUniformLocation = glGetUniformLocation(cubeShader, "view");
+        glUniformMatrix4fv(cubeViewUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
+
+        GLint cubeProjectionUniformLocation = glGetUniformLocation(cubeShader, "projection");
+        glUniformMatrix4fv(cubeProjectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
+
+        glBindVertexArray(cubeVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
+        glUniformMatrix4fv(modelRefLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
+
+        glDrawArrays(GL_TRIANGLES, 150, 6);
+        glDrawArrays(GL_TRIANGLES, 156, 6);
+        glDrawArrays(GL_TRIANGLES, 162, 6);
+        glDrawArrays(GL_TRIANGLES, 168, 6);
+        glDrawArrays(GL_TRIANGLES, 174, 6);
+        glDrawArrays(GL_TRIANGLES, 180, 6);
+#pragma endregion
 
         // SKYBOX
         glDepthFunc(GL_LEQUAL); // disables depth so always at background
         glUseProgram(skyboxShader);
         view = glm::mat4(glm::mat3(view));
-
-
-
-
         GLint viewSkyUniformLocation = glGetUniformLocation(skyboxShader, "view");
         glUniformMatrix4fv(viewSkyUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
 
@@ -1373,13 +1392,14 @@ int main()
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
         glDrawArrays(GL_TRIANGLES, 186, 36);
+
+
+
         glBindVertexArray(0);
         glDepthFunc(GL_LESS);  // set depth function back to default
 
 
 
-        // "Unuse" the vertex array object
-        glBindVertexArray(0);
 
         // Tell GLFW to swap the screen buffer with the offscreen buffer
         glfwSwapBuffers(window);
