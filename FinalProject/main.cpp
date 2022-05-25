@@ -600,9 +600,9 @@ int main()
 
     GLuint skyboxShader = CreateShaderProgram("skybox.vsh", "skybox.fsh");
 
-    GLuint cubeVAO;
-    glGenVertexArrays(1, &cubeVAO);
-    glBindVertexArray(cubeVAO);
+    GLuint reflectVAO;
+    glGenVertexArrays(1, &reflectVAO);
+    glBindVertexArray(reflectVAO);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     // Vertex attribute 0 - Position
     glEnableVertexAttribArray(0);
@@ -622,7 +622,7 @@ int main()
 
     glEnableVertexAttribArray(0);
 
-    GLuint cubeShader = CreateShaderProgram("cube.vsh", "cube.fsh");
+    GLuint reflectShader = CreateShaderProgram("cube.vsh", "cube.fsh");
 
     
 
@@ -1354,18 +1354,18 @@ int main()
 
 #pragma region reflection
         //REFLECTION
-        glUseProgram(cubeShader);
-        GLint cameraUniformLocation = glGetUniformLocation(cubeShader, "cameraPos");
+        glUseProgram(reflectShader);
+        GLint cameraUniformLocation = glGetUniformLocation(reflectShader, "cameraPos");
         glUniform3fv(cameraUniformLocation, 1, glm::value_ptr(cameraPos));
-        GLint modelRefLocation = glGetUniformLocation(cubeShader, "model");
+        GLint modelRefLocation = glGetUniformLocation(reflectShader, "model");
 
-        GLint cubeViewUniformLocation = glGetUniformLocation(cubeShader, "view");
+        GLint cubeViewUniformLocation = glGetUniformLocation(reflectShader, "view");
         glUniformMatrix4fv(cubeViewUniformLocation, 1, GL_FALSE, glm::value_ptr(view));
 
-        GLint cubeProjectionUniformLocation = glGetUniformLocation(cubeShader, "projection");
+        GLint cubeProjectionUniformLocation = glGetUniformLocation(reflectShader, "projection");
         glUniformMatrix4fv(cubeProjectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
-        glBindVertexArray(cubeVAO);
+        glBindVertexArray(reflectVAO);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
         glUniformMatrix4fv(modelRefLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
