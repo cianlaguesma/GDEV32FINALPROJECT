@@ -1,17 +1,16 @@
-#version 330 
-layout(location = 0) in vec3 aPos;
-layout(location = 3) in vec3 aNormal;
+#version 330
 
-out vec3 Normal;
-out vec3 Position;
+layout(location = 0) in vec3 vertexPos;
+layout(location = 3) in vec3 vertexNormal;
+out vec3 outVertexPos;
+out vec3 outVertexNormal;
 
-uniform mat4 transformationMatrix;
 uniform mat4 view;
 uniform mat4 projection;
+uniform mat4 model;
 
-void main()
-{
-    Normal = mat3(transpose(inverse(transformationMatrix))) * aNormal;
-    Position = vec3(transformationMatrix * vec4(aPos, 1.0));
-    gl_Position = projection * view * transformationMatrix * vec4(aPos, 1.0);
+void main() {
+	outVertexNormal = mat3(transpose(inverse(model))) * vertexNormal;
+	outVertexPos = vec3(model * vec4(vertexPos, 1.0));
+	gl_Position = projection * view * model* vec4(vertexPos, 1.0);
 }

@@ -622,7 +622,7 @@ int main()
 
     glEnableVertexAttribArray(0);
 
-    GLuint reflectShader = CreateShaderProgram("cube.vsh", "cube.fsh");
+    GLuint reflectShader = CreateShaderProgram("cubeReflect.vsh", "cubeReflect.fsh");
 
     
 
@@ -783,77 +783,8 @@ int main()
 
 
 #pragma endregion
-#pragma region FIFTHTEX
 
 
-    GLuint tex4;
-    glGenTextures(1, &tex4);
-    stbi_set_flip_vertically_on_load(true);
-
-    imageData = stbi_load("cian.jpg", &imageWidth, &imageHeight, &numChannels, 0);
-
-    if (imageData != nullptr)
-    {
-        glBindTexture(GL_TEXTURE_2D, tex4);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
-
-
-        stbi_image_free(imageData);
-        imageData = nullptr;
-    }
-    else
-    {
-        std::cerr << "Failed to load image" << std::endl;
-    }
-
-
-    stbi_set_flip_vertically_on_load(true);
-
-
-#pragma endregion
-
-#pragma region SIXTHTEX
-
-
-    GLuint tex5;
-    glGenTextures(1, &tex5);
-    stbi_set_flip_vertically_on_load(true);
-
-    imageData = stbi_load("tomy.jpg", &imageWidth, &imageHeight, &numChannels, 0);
-
-    if (imageData != nullptr)
-    {
-        glBindTexture(GL_TEXTURE_2D, tex5);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
-
-
-        stbi_image_free(imageData);
-        imageData = nullptr;
-    }
-    else
-    {
-        std::cerr << "Failed to load image" << std::endl;
-    }
-
-
-    stbi_set_flip_vertically_on_load(true);
-
-
-#pragma endregion
 #pragma region SEVENTHTEX
 
 
