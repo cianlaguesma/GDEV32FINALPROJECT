@@ -639,40 +639,7 @@ int main()
 
     glViewport(0, 0, windowWidth, windowHeight);
 
-#pragma region FIRSTTEXTURE
-    //THIS IS FOR THE FIRST TEXTURE
-    GLuint tex0;
-    glGenTextures(1, &tex0);
 
-
-
-    stbi_set_flip_vertically_on_load(true);
-
-    int imageWidth, imageHeight, numChannels;
-
-    unsigned char* imageData = stbi_load("lampShade.jpg", &imageWidth, &imageHeight, &numChannels, 0);
-
-    if (imageData != nullptr)
-    {
-        glBindTexture(GL_TEXTURE_2D, tex0);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
-
-
-        stbi_image_free(imageData);
-        imageData = nullptr;
-    }
-    else
-    {
-        std::cerr << "Failed to load image" << std::endl;
-    }
-#pragma endregion
 
 #pragma region SECONDTEXTURE
 
@@ -681,8 +648,10 @@ int main()
     GLuint tex1;
     glGenTextures(1, &tex1);
     stbi_set_flip_vertically_on_load(true);
+    int imageWidth, imageHeight, numChannels;
 
-    imageData = stbi_load("cabinetTex.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+    unsigned char* imageData = stbi_load("cabinetTex.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
 
     if (imageData != nullptr)
     {
