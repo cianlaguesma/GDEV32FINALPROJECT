@@ -891,6 +891,16 @@ int main()
     double timeout = 0;
     bool night = true;
     // Render loop
+
+    // seed random generator
+    srand(static_cast <unsigned> (time(0)));
+
+    // can change only 
+    bool canChange = true;
+    float lightColorX = 1.0f;
+    float lightColorY = 1.0f;
+    float lightColorZ = 1.0f;
+
     while (!glfwWindowShouldClose(window))
     {
         // Clear the colors in our off-screen framebuffer
@@ -1141,9 +1151,19 @@ int main()
             light.lightColor = glm::vec3(0.2f, 1.0f, 1.0f);
             light.diffuseColor = light.lightColor * glm::vec3(0.5f);
             light.ambientColor = light.diffuseColor * glm::vec3(0.5f);
+            canChange = true;
         }
         else {
-            light.lightColor = glm::vec3(0.5f, 1.0f, 1.0f);
+            if (canChange) {
+              
+                lightColorX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                lightColorY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                lightColorZ = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+            }
+            canChange = false;
+         
+          
+            light.lightColor = glm::vec3(lightColorX, lightColorY, lightColorZ);
             light.diffuseColor = light.lightColor * glm::vec3(1.f);
             light.ambientColor = light.diffuseColor * glm::vec3(1.f);
         }
