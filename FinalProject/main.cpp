@@ -1278,9 +1278,22 @@ int main()
         GLint cubeProjectionUniformLocation = glGetUniformLocation(reflectShader, "projection");
         glUniformMatrix4fv(cubeProjectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
+
+
+        GLint skyboxTexUniformLocation = glGetUniformLocation(reflectShader, "skybox");
+        glUniform1i(skyboxTexUniformLocation, 1);
+
+        GLint bumpReflectLoc = glGetUniformLocation(reflectShader, "bump");
+        glUniform1i(bumpReflectLoc, 0);
+
         glBindVertexArray(reflectVAO);
+
         glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex7);
+
+        glActiveTexture(GL_TEXTURE0 + 1);
         glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
+
         glUniformMatrix4fv(modelRefLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
 
         glDrawArrays(GL_TRIANGLES, 150, 6);
