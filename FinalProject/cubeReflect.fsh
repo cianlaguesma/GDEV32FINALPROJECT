@@ -6,6 +6,7 @@ in vec3 outVertexPos;
 in vec3 outVertexNormal;
 
 uniform samplerCube skybox;
+
 uniform vec3 cameraPos;
 
 void main()
