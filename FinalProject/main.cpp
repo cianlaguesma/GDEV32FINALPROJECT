@@ -817,7 +817,41 @@ int main()
 
 
 #pragma endregion
+#pragma region NINTHTEX
 
+
+    GLuint tex8;
+    glGenTextures(1, &tex8);
+    stbi_set_flip_vertically_on_load(true);
+
+    imageData = stbi_load("bottomDia.jpg", &imageWidth, &imageHeight, &numChannels, 0);
+
+    if (imageData != nullptr)
+    {
+        glBindTexture(GL_TEXTURE_2D, tex8);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+
+
+        stbi_image_free(imageData);
+        imageData = nullptr;
+    }
+    else
+    {
+        std::cerr << "Failed to load image" << std::endl;
+    }
+
+
+    stbi_set_flip_vertically_on_load(true);
+
+
+#pragma endregion
     GLuint skyboxTex;
     glGenTextures(1, &skyboxTex);
     glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
@@ -891,6 +925,16 @@ int main()
     double timeout = 0;
     bool night = true;
     // Render loop
+
+    // seed random generator
+    srand(static_cast <unsigned> (time(0)));
+
+    // can change only 
+    bool canChange = true;
+    float lightColorX = 1.0f;
+    float lightColorY = 1.0f;
+    float lightColorZ = 1.0f;
+
     while (!glfwWindowShouldClose(window))
     {
         // Clear the colors in our off-screen framebuffer
@@ -1141,9 +1185,19 @@ int main()
             light.lightColor = glm::vec3(0.2f, 1.0f, 1.0f);
             light.diffuseColor = light.lightColor * glm::vec3(0.5f);
             light.ambientColor = light.diffuseColor * glm::vec3(0.5f);
+            canChange = true;
         }
         else {
-            light.lightColor = glm::vec3(0.5f, 1.0f, 1.0f);
+            if (canChange) {
+              
+                lightColorX = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                lightColorY = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+                lightColorZ = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+            }
+            canChange = false;
+         
+          
+            light.lightColor = glm::vec3(lightColorX, lightColorY, lightColorZ);
             light.diffuseColor = light.lightColor * glm::vec3(1.f);
             light.ambientColor = light.diffuseColor * glm::vec3(1.f);
         }
@@ -1258,16 +1312,36 @@ int main()
         GLint cubeProjectionUniformLocation = glGetUniformLocation(reflectShader, "projection");
         glUniformMatrix4fv(cubeProjectionUniformLocation, 1, GL_FALSE, glm::value_ptr(projection));
 
+
+
+        GLint skyboxTexUniformLocation = glGetUniformLocation(reflectShader, "skybox");
+        glUniform1i(skyboxTexUniformLocation, 0);
+
+
         glBindVertexArray(reflectVAO);
+
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
+
         glUniformMatrix4fv(modelRefLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
 
         glDrawArrays(GL_TRIANGLES, 150, 6);
         glDrawArrays(GL_TRIANGLES, 156, 6);
         glDrawArrays(GL_TRIANGLES, 162, 6);
         glDrawArrays(GL_TRIANGLES, 168, 6);
+
+        glUseProgram(program);
+        glBindVertexArray(vao);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex8);
+
+        glUniformMatrix4fv(matUniformLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
         glDrawArrays(GL_TRIANGLES, 174, 6);
+        glUseProgram(reflectShader);
+        glUniformMatrix4fv(modelRefLocation, 1, GL_FALSE, glm::value_ptr(movingFace));
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTex);
         glDrawArrays(GL_TRIANGLES, 180, 6);
 #pragma endregion
 
